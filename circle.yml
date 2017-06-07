@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/applywith-sdk
+    docker:
+      - image: node:8.0.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+      - run:
+          name: Generate NPM Access Token
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run:
+          name: Image Deps
+          command: apt-get update && apt-get install -y -qq ocaml libelf-dev
+      - run:
+          name: Install Deps
+          command: npm install
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - "node_modules"
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Validating
+          command: npm run lint
