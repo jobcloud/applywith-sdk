@@ -9,9 +9,6 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
-          name: Generate NPM Access Token
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-      - run:
           name: Image Deps
           command: apt-get update && apt-get install -y -qq ocaml libelf-dev
       - run:
