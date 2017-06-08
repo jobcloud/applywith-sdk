@@ -1,1 +1,1 @@
-console.log('Hello World!!!');
+export {install} from './install';
