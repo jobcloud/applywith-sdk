@@ -13,6 +13,7 @@
   "scripts": {
     "build": "node ./tools/build.js",
     "prepublish": "node ./tools/build.js",
+    "release": "node ./tools/release.js",
     "start": "webpack-dev-server -d --content-base ./ --inline modules/index.js",
     "lint": "eslint modules && flow modules",
     "test": "jest"
