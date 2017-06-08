@@ -39,5 +39,8 @@
     "readline-sync": "^1.4.7",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "invariant": "^2.2.2"
   }
 }

@@ -1,9 +1,0 @@
-[ignore]
-<PROJECT_ROOT>/__tests__/.*
-
-[include]
-
-[libs]
-../flow-typed
-
-[options]

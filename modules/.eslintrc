@@ -7,8 +7,9 @@
     "prettier/prettier": ["error", {
       "singleQuote": true,
       "trailingComma": "all",
-      "bracketSpacing": false,
-      "parser": "flow"
+      "bracketSpacing": true,
+      "parser": "flow",
+      "printWidth": 120
     }]
   },
   "env": {
