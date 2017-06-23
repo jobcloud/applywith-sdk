@@ -16,7 +16,11 @@
     "release": "node ./tools/release.js",
     "start": "webpack-dev-server -d --content-base ./ --inline modules/index.js",
     "lint": "eslint modules && flow modules",
+    "serve": "http-server ./mocked-jobcloud-oauth -p 8081",
     "test": "jest"
+  },
+  "jest": {
+    "testURL": "http://localhost:8080/"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -32,6 +36,7 @@
     "eslint-plugin-prettier": "^2.1.1",
     "flow-bin": "^0.47.0",
     "gzip-size": "^3.0.0",
+    "http-server": "^0.10.0",
     "in-publish": "^2.0.0",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",

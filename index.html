@@ -4,10 +4,18 @@
     <script src="/bundle.js"></script>
   </head>
   <body>
-    <p>JobCloud ApplyWith SDK</p>
+    <p>JobCloud ApplyWith SDK DEV</p>
+    <ul>
+      <li>Firstname:</li>
+      <li>Lastname:</li>
+    </ul>
+    <div id="jobcloud-outlet"></div>
     <script type="text/javascript">
       JobCloudSDK.install({
-        accessKey: 'test'
+        accessKey: '8e15def0-0ed7-4b98-aad0-dfdf813987a4',
+        injectElement: '#jobcloud-outlet',
+        locale: 'de',
+        oAuthButtonPath: 'http://127.0.0.1:8081/button.html'
       });
     </script>
   </body>

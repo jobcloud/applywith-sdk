@@ -1,26 +1,32 @@
 // @flow
 import invariant from 'invariant';
+import renderFrame from './buttonFrame';
+import parseConfig from './parseConfig';
 
-import type { SDKConfig } from './types';
+import type { SDKConfig, SDKSecureConfig, Locale } from './types';
 
-const supportedLocales = ['de', 'fr', 'en'];
+const supportedLocales: Array<Locale> = ['de', 'fr', 'en'];
 const defaultOAuthHost = 'https://www.jobs.ch';
 const defaultOAuthEndpoint = '/auth/oauth/';
 
 const createSdk = (config: SDKConfig) => {
-  getOAuthEndpoint: (): string => {
-    if (config.oAuthEndpoint) {
-      return config.oAuthEndpoint;
-    }
-
-    if (config.locale === undefined || supportedLocales.indexOf(config.locale) === -1) {
-      invariant(`JobCloudSDK: Locale "${config.locale || 'undefined'}" is not supported.`);
-    }
-    return `${defaultOAuthHost}/${config.locale || 'de'}/${defaultOAuthEndpoint}`;
-  };
+  const parsedConfig = parseConfig(config);
 
   const sdk = {
-    // @TODO Add SDK Methods
+    injectButton: (): void => {
+      renderFrame(
+        parsedConfig.injectElement,
+        () => {
+          console.log('CLICK REGISTERED! WOO!');
+        },
+        {
+          locale: parsedConfig.locale,
+          color: parsedConfig.colorVariant,
+          path: parsedConfig.oAuthButtonPath,
+          accessKey: parsedConfig.accessKey,
+        },
+      );
+    },
   };
 
   return sdk;
