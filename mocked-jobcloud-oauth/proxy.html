@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script type="text/javascript">
+      (function runProxy() {
+        if (window.parent) {
+          window.parent.postMessage(JSON.stringify({ type: '@jobcloud/proxy-ready' }), '*');
+          console.log('Proxy open.');
+          window.proxyPostMessage = function(data) {
+            console.log('Proxy has recieved event. Tunneling.');
+            window.parent.postMessage(data, '*')
+          };
+        }
+      })();
+    </script>
+  </body>
+</html>

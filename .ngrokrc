@@ -1,0 +1,7 @@
+tunnels:
+  app:
+    addr: 8080
+    proto: http
+  mock:
+    addr: 8081
+    proto: http

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`proxyFrame renders frame with correct default structure 1`] = `
+"<iframe src=\\"http://www.jobs.ch/public/oauth-xdomain-proxy.html\\" frameborder=\\"0\\" width=\\"0\\" height=\\"0\\" id=\\"jobcloud-xdomain-frame\\" style=\\"
+  visibility: hidden;
+\\"></iframe>"
+`;

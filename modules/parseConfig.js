@@ -17,6 +17,8 @@ export default (config: SDKConfig): SDKSecureConfig => {
   const parsedConfig: Object = {
     accessKey: config.accessKey,
     oAuthButtonPath: config.oAuthButtonPath,
+    oAuthProxyPath: config.oAuthProxyPath,
+    callback: config.callback ? config.callback : () => {},
   };
 
   if (config.locale && supportedLocales.find(code => code === config.locale)) {
@@ -38,9 +40,14 @@ export default (config: SDKConfig): SDKSecureConfig => {
     parsedConfig.colorVariant = 'blue';
   }
 
+  const enpointSearch =
+    `?client_id=${parsedConfig.accessKey}&` +
+    `redirect_uri=${encodeURIComponent(window.location.href)}&` +
+    'scopes=basic_information&state=default_state&use_message=1';
+
   parsedConfig.oAuthEndpoint = typeof config.oAuthEndpoint === 'string'
-    ? config.oAuthEndpoint
-    : `${defaultOAuthHost}/${parsedConfig.locale}${defaultOAuthEndpoint}`;
+    ? `${config.oAuthEndpoint}${enpointSearch}`
+    : `${defaultOAuthHost}/${parsedConfig.locale}${defaultOAuthEndpoint}${enpointSearch}`;
 
   const originalSelector = (parsedConfig.injectElement = config.injectElement);
   if (parsedConfig && typeof parsedConfig.injectElement === 'string') {
@@ -54,7 +61,7 @@ export default (config: SDKConfig): SDKSecureConfig => {
     throw new Error(
       `Invalid or missing "injectElement" config option. The element "${typeof originalSelector === 'string'
         ? originalSelector
-        : ''}" could not be found on the page or is undefined.`,
+        : ''}" could not be found on the page or is undefined.`
     );
   }
   return parsedConfig;

@@ -49,12 +49,19 @@ describe('parseConfig', () => {
       it('warns user', () => {
         expect(console.warn.calls.count()).toBe(1);
         expect(console.warn.calls.argsFor(0)[0]).toContain(
-          'JobCloudSDK: Locale "it" is not supported. Falling back to "de".',
+          'JobCloudSDK: Locale "it" is not supported. Falling back to "de".'
         );
       });
 
       it('falls back to "de"', () => {
         expect(config.locale).toEqual('de');
+      });
+    });
+
+    describe('on undefined callback', () => {
+      it('uses implicit callback', () => {
+        const config = parseConfig({ accessKey: 'fd00', injectElement: createInjectElement(), locale: 'de' });
+        expect(config.callback).toBeDefined();
       });
     });
   });
@@ -63,24 +70,24 @@ describe('parseConfig', () => {
     it('throws on missing', () => {
       expect(() => parseConfig({ accessKey: 'fd00', locale: 'de' })).toThrow(
         new Error(
-          'Invalid or missing "injectElement" config option. The element "" could not be found on the page or is undefined.',
-        ),
+          'Invalid or missing "injectElement" config option. The element "" could not be found on the page or is undefined.'
+        )
       );
     });
 
     it('throws on invalid selector', () => {
       expect(() => parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: '#not-found' })).toThrow(
         new Error(
-          'Invalid or missing "injectElement" config option. The element "#not-found" could not be found on the page or is undefined.',
-        ),
+          'Invalid or missing "injectElement" config option. The element "#not-found" could not be found on the page or is undefined.'
+        )
       );
     });
 
     it('throws on invalid reference', () => {
       expect(() => parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: {} })).toThrow(
         new Error(
-          'Invalid or missing "injectElement" config option. The element "" could not be found on the page or is undefined.',
-        ),
+          'Invalid or missing "injectElement" config option. The element "" could not be found on the page or is undefined.'
+        )
       );
     });
 
@@ -96,11 +103,26 @@ describe('parseConfig', () => {
     });
   });
 
+  describe('callback', () => {
+    it('gets overwritten', () => {
+      const cb = () => {};
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+        callback: cb,
+      });
+      expect(config.callback).toEqual(cb);
+    });
+  });
+
   describe('oAuthEndpoint', () => {
     it('creates default endpoint', () => {
       expect(
-        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() }).oAuthEndpoint,
-      ).toEqual('https://www.jobs.ch/de/auth/oauth/');
+        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() }).oAuthEndpoint
+      ).toEqual(
+        'https://www.jobs.ch/de/auth/oauth/?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scopes=basic_information&state=default_state&use_message=1'
+      );
     });
 
     it('can be overwritten', () => {
@@ -110,22 +132,24 @@ describe('parseConfig', () => {
           locale: 'de',
           injectElement: createInjectElement(),
           oAuthEndpoint: 'http://kittens.com',
-        }).oAuthEndpoint,
-      ).toEqual('http://kittens.com');
+        }).oAuthEndpoint
+      ).toEqual(
+        'http://kittens.com?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scopes=basic_information&state=default_state&use_message=1'
+      );
     });
   });
 
   describe('colorVariant', () => {
     it('defaults to blue variant', () => {
       expect(
-        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() }).colorVariant,
+        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() }).colorVariant
       ).toEqual('blue');
     });
 
     it('can be overwritten', () => {
       expect(
         parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement(), colorVariant: 'white' })
-          .colorVariant,
+          .colorVariant
       ).toEqual('white');
     });
 
@@ -141,7 +165,7 @@ describe('parseConfig', () => {
         parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement(), colorVariant: 'green' });
         expect(console.warn.calls.count()).toEqual(1);
         expect(console.warn.calls.argsFor(0)[0]).toContain(
-          'JobCloudSDK: Color "green" is not supported. Falling back to "blue".',
+          'JobCloudSDK: Color "green" is not supported. Falling back to "blue".'
         );
       });
 
