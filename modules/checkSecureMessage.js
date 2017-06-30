@@ -4,7 +4,12 @@ export default (event: MessageEvent, messageType: string, origin: string): ?Obje
   if (!event.data || !(typeof event.data === 'string')) {
     return null;
   }
-  const data = JSON.parse(event.data);
+  let data;
+  try {
+    data = JSON.parse(event.data);
+  } catch (e) {
+    console.warn('JobCloudSDK: Recieved invalid message format!');
+  }
   if (data === undefined || !('type' in data) || data.type === undefined) {
     return null;
   }

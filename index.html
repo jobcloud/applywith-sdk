@@ -18,6 +18,7 @@
     <script type="text/javascript">
       JobCloudSDK.install({
         accessKey: '8e15def0-0ed7-4b98-aad0-dfdf813987a4',
+        // accessKey: '22_ffff',
         injectElement: '#jobcloud-outlet',
         locale: 'de',
         callback: function(app) {
@@ -34,10 +35,12 @@
             document.querySelector('#app-address').textContent = app.zipCode + ' ' + app.city + ' - ' + app.country;
           }
         },
-        oAuthButtonPath: 'http://localhost:8081/button.html',
-        // oAuthButtonPath: 'http://localhost:4000/de/auth/apply-with-button/'
-        oAuthEndpoint: 'http://localhost:8081/oauth.html',
-        oAuthProxyPath: 'http://localhost:8081/proxy.html'
+        // oAuthButtonPath: 'http://localhost:8081/button.html',
+        // oAuthButtonPath: 'http://localhost:4000/de/auth/apply-with-button/',
+        // oAuthEndpoint: 'http://localhost:8081/oauth.html',
+        // oAuthEndpoint: 'http://localhost:4000/de/auth/oauth/',
+        // oAuthProxyPath: 'http://localhost:8081/proxy.html'
+        // oAuthProxyPath: 'http://localhost:4000/public/support/oauth-xdomain-proxy.html'
       });
     </script>
   </body>

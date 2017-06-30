@@ -1,7 +1,7 @@
 // @flow
 import checkSecureMessage from './checkSecureMessage';
 
-const defaultProxyPath = 'http://www.jobs.ch/public/oauth-xdomain-proxy.html';
+const defaultProxyPath = 'https://www.jobs.ch/public/support/oauth-xdomain-proxy.html';
 
 const getFrameStyle = () => `
   visibility: hidden;

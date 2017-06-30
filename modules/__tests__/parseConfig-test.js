@@ -121,7 +121,7 @@ describe('parseConfig', () => {
       expect(
         parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() }).oAuthEndpoint
       ).toEqual(
-        'https://www.jobs.ch/de/auth/oauth/?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scopes=basic_information&state=default_state&use_message=1'
+        'https://www.jobs.ch/de/auth/oauth/?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1'
       );
     });
 
@@ -134,7 +134,7 @@ describe('parseConfig', () => {
           oAuthEndpoint: 'http://kittens.com',
         }).oAuthEndpoint
       ).toEqual(
-        'http://kittens.com?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scopes=basic_information&state=default_state&use_message=1'
+        'http://kittens.com?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1'
       );
     });
   });

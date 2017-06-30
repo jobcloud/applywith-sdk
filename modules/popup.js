@@ -9,11 +9,6 @@ export default (options: PopupOptions, callback: ?Function) => {
 
   return {
     open: () => {
-      if (pWindow) {
-        pWindow.focus();
-        return;
-      }
-
       const width = Math.min(Math.floor(window.outerWidth * 0.8), 1000);
       const height = Math.min(Math.floor(window.outerHeight * 0.5), 630);
       const left = Math.floor(window.screenX + (window.outerWidth - width) / 2);
@@ -44,7 +39,6 @@ export default (options: PopupOptions, callback: ?Function) => {
           pWindow.close();
           pWindow = undefined;
         }
-
         callback && callback(eventData.payload.application);
       };
       window.addEventListener('message', messageEventListener);

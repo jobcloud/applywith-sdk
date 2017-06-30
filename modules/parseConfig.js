@@ -42,8 +42,10 @@ export default (config: SDKConfig): SDKSecureConfig => {
 
   const enpointSearch =
     `?client_id=${parsedConfig.accessKey}&` +
-    `redirect_uri=${encodeURIComponent(window.location.href)}&` +
-    'scopes=basic_information&state=default_state&use_message=1';
+    `redirect_uri=${encodeURIComponent(window.location.origin)}&` +
+    'approval_prompt=auto&response_type=code&' +
+    'scopes=user_cv_basic_data+user_cv_documents+user_basic_information&' +
+    'state=default_state&use_message=1&slim=1';
 
   parsedConfig.oAuthEndpoint = typeof config.oAuthEndpoint === 'string'
     ? `${config.oAuthEndpoint}${enpointSearch}`

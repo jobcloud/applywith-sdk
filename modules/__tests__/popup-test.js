@@ -37,11 +37,6 @@ describe('popup', () => {
     it('focuses after opening', () => {
       expect(spies.focus).toHaveBeenCalled();
     });
-    it('wont open twice and instead focuses again', () => {
-      popup.open();
-      expect(window.open.calls.count()).toEqual(1);
-      expect(spies.focus.calls.count()).toEqual(2);
-    });
   });
 
   describe('postMessage', () => {
