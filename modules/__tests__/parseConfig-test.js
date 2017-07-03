@@ -125,6 +125,15 @@ describe('parseConfig', () => {
       );
     });
 
+    it('creates test endpoint', () => {
+      expect(
+        parseConfig({ accessKey: 'fd00', locale: 'de', env: 'test', injectElement: createInjectElement() })
+          .oAuthEndpoint
+      ).toEqual(
+        'https://www.jobs.ch/public/support/oauth-test-login.html?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1'
+      );
+    });
+
     it('can be overwritten', () => {
       expect(
         parseConfig({
@@ -183,9 +192,18 @@ describe('parseConfig', () => {
   });
 
   describe('oAuthButtonPath', () => {
-    it('is undefined by default', () => {
+    it('creates default path', () => {
       const config = parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() });
-      expect(config.oAuthButtonPath).toBeUndefined();
+      expect(config.oAuthButtonPath).toEqual('https://www.jobs.ch/de/auth/apply-with-button/');
+    });
+    it('creates test path', () => {
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        env: 'test',
+        injectElement: createInjectElement(),
+      });
+      expect(config.oAuthButtonPath).toEqual('https://www.jobs.ch/public/support/oauth-test-button.html');
     });
     it('can be overwritten', () => {
       const config = parseConfig({
@@ -195,6 +213,31 @@ describe('parseConfig', () => {
         oAuthButtonPath: 'http://kittens.com',
       });
       expect(config.oAuthButtonPath).toEqual('http://kittens.com');
+    });
+  });
+
+  describe('oAuthProxyPath', () => {
+    it('creates default path', () => {
+      const config = parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() });
+      expect(config.oAuthProxyPath).toEqual('https://www.jobs.ch/public/support/oauth-xdomain-proxy.html');
+    });
+    it('creates test path', () => {
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        env: 'test',
+        injectElement: createInjectElement(),
+      });
+      expect(config.oAuthProxyPath).toEqual('https://www.jobs.ch/public/support/oauth-xdomain-proxy.html');
+    });
+    it('can be overwritten', () => {
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+        oAuthProxyPath: 'http://kittens.com',
+      });
+      expect(config.oAuthProxyPath).toEqual('http://kittens.com');
     });
   });
 });

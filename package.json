@@ -16,7 +16,6 @@
     "release": "node ./tools/release.js",
     "start": "webpack-dev-server -d --content-base ./ --inline modules/index.js",
     "lint": "eslint modules && flow modules",
-    "tunnel": "ngrok start --config .ngrokrc --all",
     "serve": "http-server ./mocked-jobcloud-oauth -p 8081",
     "test": "jest"
   },

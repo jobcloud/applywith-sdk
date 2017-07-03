@@ -1,11 +1,10 @@
 // @flow
+import hosts from './hosts';
 
 import type { SDKConfig, SDKSecureConfig, Locale, ApplyButtonColor } from './types';
 
 const supportedLocales: Array<Locale> = ['de', 'fr', 'en'];
 const supportedColors: Array<ApplyButtonColor> = ['white', 'blue'];
-const defaultOAuthHost = 'https://www.jobs.ch';
-const defaultOAuthEndpoint = '/auth/oauth/';
 
 export default (config: SDKConfig): SDKSecureConfig => {
   if (typeof config !== 'object' || config === null) {
@@ -14,10 +13,10 @@ export default (config: SDKConfig): SDKSecureConfig => {
   if (typeof config.accessKey !== 'string') {
     throw new Error('Missing "accessKey" config option.');
   }
+  const env = config.env || 'prod';
+
   const parsedConfig: Object = {
     accessKey: config.accessKey,
-    oAuthButtonPath: config.oAuthButtonPath,
-    oAuthProxyPath: config.oAuthProxyPath,
     callback: config.callback ? config.callback : () => {},
   };
 
@@ -49,7 +48,15 @@ export default (config: SDKConfig): SDKSecureConfig => {
 
   parsedConfig.oAuthEndpoint = typeof config.oAuthEndpoint === 'string'
     ? `${config.oAuthEndpoint}${enpointSearch}`
-    : `${defaultOAuthHost}/${parsedConfig.locale}${defaultOAuthEndpoint}${enpointSearch}`;
+    : `${hosts[env].getOAuthPath(parsedConfig.locale)}${enpointSearch}`;
+
+  parsedConfig.oAuthButtonPath = typeof config.oAuthButtonPath === 'string'
+    ? config.oAuthButtonPath
+    : hosts[env].getButtonPath(parsedConfig.locale);
+
+  parsedConfig.oAuthProxyPath = typeof config.oAuthProxyPath === 'string'
+    ? config.oAuthProxyPath
+    : hosts[env].getProxyPath(parsedConfig.locale);
 
   const originalSelector = (parsedConfig.injectElement = config.injectElement);
   if (parsedConfig && typeof parsedConfig.injectElement === 'string') {

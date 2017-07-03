@@ -2,6 +2,8 @@
 
 export type Locale = 'de' | 'fr' | 'en';
 
+export type Env = 'prod' | 'test' | 'dev' | '_internal_test';
+
 // All SDKConfig fields are marked optional because the API is called by
 // the SDK consumer which could lead to required properties beeing undefined.
 export type SDKConfig = {
@@ -15,6 +17,8 @@ export type SDKConfig = {
   +injectElement?: HTMLElement | string,
   // Callback called with the applicants personal information
   +callback?: ApplicationCallback,
+  // Hosts configuration
+  +env?: Env,
 
   // -- Really optional fields
 

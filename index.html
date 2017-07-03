@@ -17,10 +17,11 @@
     <div id="jobcloud-outlet"></div>
     <script type="text/javascript">
       JobCloudSDK.install({
-        accessKey: '8e15def0-0ed7-4b98-aad0-dfdf813987a4',
-        // accessKey: '22_ffff',
+        // accessKey: '8e15def0-0ed7-4b98-aad0-dfdf813987a4',
+        accessKey: '22_ffff',
         injectElement: '#jobcloud-outlet',
         locale: 'de',
+        env: 'test', // prod, test, dev
         callback: function(app) {
           document.querySelector('#app-gender').textContent = app.gender;
           document.querySelector('#app-email').textContent = app.email;
@@ -34,13 +35,7 @@
           if (app.zipCode && app.city && app.country) {
             document.querySelector('#app-address').textContent = app.zipCode + ' ' + app.city + ' - ' + app.country;
           }
-        },
-        // oAuthButtonPath: 'http://localhost:8081/button.html',
-        // oAuthButtonPath: 'http://localhost:4000/de/auth/apply-with-button/',
-        // oAuthEndpoint: 'http://localhost:8081/oauth.html',
-        // oAuthEndpoint: 'http://localhost:4000/de/auth/oauth/',
-        // oAuthProxyPath: 'http://localhost:8081/proxy.html'
-        // oAuthProxyPath: 'http://localhost:4000/public/support/oauth-xdomain-proxy.html'
+        }
       });
     </script>
   </body>
