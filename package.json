@@ -7,7 +7,18 @@
   "description": "ApplyWith JobCloud SDK",
   "files": [
     "es",
-    "umd"
+    "umd",
+    "buttonFrame.js",
+    "checkSecureMessage.js",
+    "createSdk.js",
+    "hosts.js",
+    "index.js",
+    "install.js",
+    "parseApplication.js",
+    "parseConfig.js",
+    "popup.js",
+    "proxyFrame.js",
+    "types.js"
   ],
   "license": "MIT",
   "scripts": {
