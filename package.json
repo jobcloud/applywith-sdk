@@ -1,5 +1,5 @@
 {
-  "name": "jobcloud-applywith-sdk",
+  "name": "@jobcloud/applywith-sdk",
   "engines": {
     "node": ">=8.0.0"
   },
