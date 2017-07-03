@@ -1,11 +1,10 @@
 // @flow
+import hosts from './hosts';
 
 import type { SDKConfig, SDKSecureConfig, Locale, ApplyButtonColor } from './types';
 
 const supportedLocales: Array<Locale> = ['de', 'fr', 'en'];
 const supportedColors: Array<ApplyButtonColor> = ['white', 'blue'];
-const defaultOAuthHost = 'https://www.jobs.ch';
-const defaultOAuthEndpoint = '/auth/oauth/';
 
 export default (config: SDKConfig): SDKSecureConfig => {
   if (typeof config !== 'object' || config === null) {
@@ -14,9 +13,11 @@ export default (config: SDKConfig): SDKSecureConfig => {
   if (typeof config.accessKey !== 'string') {
     throw new Error('Missing "accessKey" config option.');
   }
+  const env = config.env || 'prod';
+
   const parsedConfig: Object = {
     accessKey: config.accessKey,
-    oAuthButtonPath: config.oAuthButtonPath,
+    callback: config.callback ? config.callback : () => {},
   };
 
   if (config.locale && supportedLocales.find(code => code === config.locale)) {
@@ -38,9 +39,24 @@ export default (config: SDKConfig): SDKSecureConfig => {
     parsedConfig.colorVariant = 'blue';
   }
 
+  const enpointSearch =
+    `?client_id=${parsedConfig.accessKey}&` +
+    `redirect_uri=${encodeURIComponent(window.location.origin)}&` +
+    'approval_prompt=auto&response_type=code&' +
+    'scopes=user_cv_basic_data+user_cv_documents+user_basic_information&' +
+    'state=default_state&use_message=1&slim=1';
+
   parsedConfig.oAuthEndpoint = typeof config.oAuthEndpoint === 'string'
-    ? config.oAuthEndpoint
-    : `${defaultOAuthHost}/${parsedConfig.locale}${defaultOAuthEndpoint}`;
+    ? `${config.oAuthEndpoint}${enpointSearch}`
+    : `${hosts[env].getOAuthPath(parsedConfig.locale)}${enpointSearch}`;
+
+  parsedConfig.oAuthButtonPath = typeof config.oAuthButtonPath === 'string'
+    ? config.oAuthButtonPath
+    : hosts[env].getButtonPath(parsedConfig.locale);
+
+  parsedConfig.oAuthProxyPath = typeof config.oAuthProxyPath === 'string'
+    ? config.oAuthProxyPath
+    : hosts[env].getProxyPath(parsedConfig.locale);
 
   const originalSelector = (parsedConfig.injectElement = config.injectElement);
   if (parsedConfig && typeof parsedConfig.injectElement === 'string') {
@@ -54,7 +70,7 @@ export default (config: SDKConfig): SDKSecureConfig => {
     throw new Error(
       `Invalid or missing "injectElement" config option. The element "${typeof originalSelector === 'string'
         ? originalSelector
-        : ''}" could not be found on the page or is undefined.`,
+        : ''}" could not be found on the page or is undefined.`
     );
   }
   return parsedConfig;

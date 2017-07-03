@@ -43,7 +43,7 @@ describe('buttonFrame', () => {
     it('calls clickHandler callback', done => {
       spyOn(spies, 'clickHandler').and.callFake(done);
       createFrame(undefined, undefined, 'http://localhost:8081/button.html');
-      window.postMessage({ type: '@jobcloud/click', testOrigin: 'http://localhost:8081' }, '*');
+      window.postMessage(JSON.stringify({ type: '@jobcloud/click', testOrigin: 'http://localhost:8081' }), '*');
     });
     it('shows user warning when origin does not match', done => {
       spyOn(console, 'warn').and.callFake(() => {
@@ -52,7 +52,7 @@ describe('buttonFrame', () => {
         done();
       });
       createFrame(undefined, undefined, 'http://localhost:8081/button.html');
-      window.postMessage({ type: '@jobcloud/click', testOrigin: 'http://www.hostile-host.ch' }, '*');
+      window.postMessage(JSON.stringify({ type: '@jobcloud/click', testOrigin: 'http://www.hostile-host.ch' }), '*');
     });
   });
 });

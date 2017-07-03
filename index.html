@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- <script src="/umd/jobcloud-sdk.js"></script> -->
     <script src="/bundle.js"></script>
   </head>
   <body>
     <p>JobCloud ApplyWith SDK DEV</p>
     <ul>
-      <li>Firstname:</li>
-      <li>Lastname:</li>
+      <li>Gender: <span id="app-gender"></span></li>
+      <li>Firstname: <span id="app-firstname"></span></li>
+      <li>Lastname: <span id="app-lastname"></span></li>
+      <li>Email: <span id="app-email"></span></li>
+      <li>Phone: <span id="app-phone"></span></li>
+      <li>Address: <span id="app-address"></span></li>
     </ul>
     <div id="jobcloud-outlet"></div>
     <script type="text/javascript">
       JobCloudSDK.install({
-        accessKey: '8e15def0-0ed7-4b98-aad0-dfdf813987a4',
+        // accessKey: '8e15def0-0ed7-4b98-aad0-dfdf813987a4',
+        accessKey: '22_ffff',
         injectElement: '#jobcloud-outlet',
         locale: 'de',
-        oAuthButtonPath: 'http://127.0.0.1:8081/button.html'
+        env: 'test', // prod, test, dev
+        callback: function(app) {
+          document.querySelector('#app-gender').textContent = app.gender;
+          document.querySelector('#app-email').textContent = app.email;
+          if (app.firstName && app.lastName) {
+            document.querySelector('#app-firstname').textContent = app.firstName;
+            document.querySelector('#app-lastname').textContent = app.lastName;
+          }
+          if (app.phone) {
+            document.querySelector('#app-phone').textContent = app.phone;
+          }
+          if (app.zipCode && app.city && app.country) {
+            document.querySelector('#app-address').textContent = app.zipCode + ' ' + app.city + ' - ' + app.country;
+          }
+        }
       });
     </script>
   </body>

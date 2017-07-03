@@ -29,7 +29,7 @@ exec(`npm version ${nextVersion} -m "Version %s"`);
 
 // 5) Publish to npm. Use the "next" tag for pre-releases,
 // "latest" for all others
-exec(`npm publish --tag ${isPrerelease ? 'next' : 'latest'}`);
+exec(`npm publish --access=public --tag ${isPrerelease ? 'next' : 'latest'}`);
 
 // 6) Push the v* tag to GitHub
 exec(`git push -f origin v${getPackageVersion()}`);

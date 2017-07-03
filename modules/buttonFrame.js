@@ -1,8 +1,9 @@
 // @flow
+import checkSecureMessage from './checkSecureMessage';
 import type { ApplyButtonClickHandler, ApplyButtonOptions, Locale, ApplyButtonColor } from './types';
 
 const defaultButtonOrigin = 'https://www.jobs.ch';
-const getDefaultButtonPath = (locale: Locale) => `/${locale}/apply-with/button/`;
+const getDefaultButtonPath = (locale: Locale) => `/${locale}/auth/apply-with-button/`;
 
 const createButtonUrl = (locale: Locale, color: ApplyButtonColor, accessKey: string, origin?: string): string => {
   const path = origin || `${defaultButtonOrigin}${getDefaultButtonPath(locale)}`;
@@ -48,28 +49,7 @@ export default (container: HTMLElement, clickHandler: ApplyButtonClickHandler, o
   }
 
   messageEventListener = (event: MessageEvent) => {
-    if (typeof event.data !== 'object' || event.data === null) {
-      return;
-    }
-    if (event.data === undefined || !('type' in event.data) || event.data.type === undefined) {
-      return;
-    }
-    if (event.data.type !== '@jobcloud/click') {
-      return;
-    }
-    // Not the best outcome to have test specific code here. But better be
-    // able to test this security feature as to be left in the dark.
-    if (process.env.NODE_ENV === 'test') {
-      if (
-        !('testOrigin' in event.data) ||
-        typeof event.data.testOrigin !== 'string' ||
-        !framePath.startsWith(event.data.testOrigin)
-      ) {
-        console.warn('JobCloudSDK: Recieved click message from invalid origin!');
-        return;
-      }
-    } else if (!framePath.startsWith(event.origin)) {
-      console.warn('JobCloudSDK: Recieved click message from invalid origin!');
+    if (checkSecureMessage(event, '@jobcloud/click', framePath) === null) {
       return;
     }
 

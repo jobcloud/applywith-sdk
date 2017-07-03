@@ -6,7 +6,7 @@
   "rules": {
     "prettier/prettier": ["error", {
       "singleQuote": true,
-      "trailingComma": "all",
+      "trailingComma": "es5",
       "bracketSpacing": true,
       "parser": "flow",
       "printWidth": 120

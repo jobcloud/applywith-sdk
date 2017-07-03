@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/qs/dist/qs.js"></script>
+  </head>
+  <body>
+    <h1>Authenticating...</h1>
+    <script type="text/javascript">
+      (function initAuth() {
+        const query = Qs.parse(window.location.search.substring(1));
+        setTimeout(function() {
+          if (query.redirect_uri && window.opener) {
+            var msg = JSON.stringify({
+              type: '@jobcloud/application',
+              payload: {
+                application: {
+                  Email: 'tester@jobcloud.ch',
+                  Title: 'Mr',
+                  FirstName: 'Max Arnold',
+                  Surname: 'Mustermann',
+                  PhoneNumber: '555 01234 5678',
+                  Address: {
+                    ZipCode: '8032',
+                    City: 'Zürich',
+                    Country: 'CH',
+                  },
+                  AdditionalDocuments: [
+                    {
+                      mime_type: 'image/jpeg',
+                      binary_data: '000000000',
+                      filename: 'TestImage.jpg'
+                    }
+                  ],
+                  CV: {
+                    mime_type: 'application/pdf',
+                    binary_data: '000000000',
+                  }
+                }
+              }
+            });
+
+            if (navigator.userAgent.indexOf("MSIE") > -1 || navigator.appVersion.indexOf("Trident/") > 0) {
+              window.opener.frames[0].proxyPostMessage(msg);
+            } else {
+              window.opener.postMessage(msg, query.redirect_uri);
+            }
+          } else {
+            console.warn('No opener window defined');
+          }
+        }, 2000);
+      })();
+    </script>
+  </body>
+</html>

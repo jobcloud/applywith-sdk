@@ -2,6 +2,8 @@
 
 export type Locale = 'de' | 'fr' | 'en';
 
+export type Env = 'prod' | 'test' | 'dev' | '_internal_test';
+
 // All SDKConfig fields are marked optional because the API is called by
 // the SDK consumer which could lead to required properties beeing undefined.
 export type SDKConfig = {
@@ -13,6 +15,10 @@ export type SDKConfig = {
   +locale?: Locale,
   // Element in which the button will be injected
   +injectElement?: HTMLElement | string,
+  // Callback called with the applicants personal information
+  +callback?: ApplicationCallback,
+  // Hosts configuration
+  +env?: Env,
 
   // -- Really optional fields
 
@@ -20,6 +26,8 @@ export type SDKConfig = {
   +oAuthEndpoint?: string,
   // Used to overwrite the default button path
   +oAuthButtonPath?: string,
+  // Used to overwrite the default iframe xorigin proxy
+  +oAuthProxyPath?: string,
   // Color variant of the apply-with button
   +colorVariant?: ApplyButtonColor,
 };
@@ -30,7 +38,9 @@ export type SDKSecureConfig = {
   injectElement: HTMLElement,
   oAuthEndpoint: string,
   colorVariant: ApplyButtonColor,
+  callback: ApplicationCallback,
   oAuthButtonPath?: string,
+  oAuthProxyPath: string,
 };
 
 export type ApplyButtonClickHandler = () => void;
@@ -47,3 +57,52 @@ export type ApplyButtonOptions = {
   // Used to overwrite the default path for testing purposes.
   +path?: string,
 };
+
+export type PopupOptions = {
+  // oAuth Endpoint
+  +endpoint: string,
+};
+
+export type API10ApplicationPayload = {
+  Email: string,
+  Title: 'Mr' | 'Mrs',
+  FirstName: string,
+  Surname: string,
+  PhoneNumber: string,
+  Address?: {
+    ZipCode: string,
+    City: string,
+    Country: string,
+  },
+  AdditionalDocuments?: Array<{
+    mime_type: string,
+    binary_data: string,
+    filename: string,
+  }>,
+  CV?: {
+    mime_type: string,
+    binary_data: string,
+  },
+};
+
+export type Application = {
+  email: string,
+  gender: 'M' | 'F',
+  firstName?: string,
+  lastName?: string,
+  phone?: string,
+  zipCode?: string,
+  city?: string,
+  country?: string,
+  cv?: {
+    mimeType: string,
+    binary: string,
+  },
+  documents?: Array<{
+    mimeType: string,
+    binary: string,
+    fileName: string,
+  }>,
+};
+
+export type ApplicationCallback = (app: Application) => void;
