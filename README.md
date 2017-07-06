@@ -3,7 +3,7 @@
 [npm-badge]: https://img.shields.io/npm/v/@jobcloud/applywith-sdk.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/@jobcloud/applywith-sdk
 
-[`@jobcloud/applywith-sdk`](https://www.npmjs.com/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate a way for
+[`@jobcloud/applywith-sdk`](https://www.npmjs.com/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch profile, including their CV and uploaded documents.
 
 ## Installation
 
