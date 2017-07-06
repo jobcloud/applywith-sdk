@@ -31,7 +31,7 @@ You can find the library on `window.JobCloudSDK`.
 
 ## Usage
 
-`@jobcloud/applywith-sdk` provides the simple `install` method that takes a few options to create all that is needed for the SDK to work. An implementation example can be found [here](https://github.com/jobcloud/applywith-sdk/blob/develop/example.html).
+`@jobcloud/applywith-sdk` provides the simple `install` method that takes a few options to create all that is needed for the SDK to work. An implementation example can be found [here](https://github.com/jobcloud/applywith-sdk/blob/develop/example/index.html).
 
 Basic usage looks like this (using the UMD build as example):
 
@@ -87,7 +87,18 @@ The `callback` option gets called on success with the following data structure:
 }
 ```
 
-Please also check out the [simple example](https://github.com/jobcloud/applywith-sdk/blob/develop/example.html).
+### Handling documents
+
+The SDK will provide the documents a user has attached to his or her profile as base64 encoded strings together with a file name and the mime type. In order to save them on your server you'll need to decode them first. This strongly depends on your used server stack. An example on how to do this in an `nodejs` environment can be found in the [examples folder](https://github.com/jobcloud/applywith-sdk/tree/develop/examples).
+
+There is currently no way to attach these files to the form in a way that would mimic a file that was selected by the user in the browser.
+
+## Running the example
+
+1. Clone this project and `cd` into the directory.
+2. `npm install` to fetch dependencies.
+3. `npm run example` to run the example.
+4. Open [`localhost:8082/index.html`](http://localhost:8082/index.html), press the applyWith button and send the application. The attachments are now uploaded and saved to `example/uploads`.
 
 ## Contribution Quickstart
 

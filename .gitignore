@@ -3,3 +3,5 @@ node_modules
 umd
 /*.js
 !webpack.config.js
+example/uploads/*
+!example/uploads/.gitkeep

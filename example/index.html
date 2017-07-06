@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="/bundle.js"></script>
+    <script src="https://unpkg.com/@jobcloud/applywith-sdk/umd/jobcloud-sdk.min.js"></script>
   </head>
   <body>
-    <p>JobCloud ApplyWith SDK DEV</p>
+    <p>JobCloud ApplyWith SDK Example</p>
     <div id="jobcloud-outlet"></div>
     <form id="app-form" method="POST" action="http://localhost:8083/upload" enctype="application/x-www-form-urlencoded">
       <fieldset>
@@ -90,8 +90,8 @@
       JobCloudSDK.install({
         accessKey: '22_ffff',
         injectElement: '#jobcloud-outlet',
-        locale: 'de',
-        env: 'dev', // prod, test, dev
+        locale: 'en',
+        env: 'test',
         callback: sdkCallback
       });
     </script>
