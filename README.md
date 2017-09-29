@@ -89,7 +89,7 @@ The `callback` option gets called on success with the following data structure:
 
 ### Handling documents
 
-The SDK will provide the documents a user has attached to his or her profile as base64 encoded strings together with a file name and the mime type. In order to save them on your server you'll need to decode them first. This strongly depends on your used server stack. An example on how to do this in an `nodejs` environment can be found in the [examples folder](https://github.com/jobcloud/applywith-sdk/tree/develop/examples).
+The SDK will provide the documents a user has attached to his or her profile as base64 encoded strings together with a file name and the mime type. In order to save them on your server you'll need to decode them first. This strongly depends on your used server stack. An example on how to do this in an `nodejs` environment can be found in the [example folder](https://github.com/jobcloud/applywith-sdk/tree/develop/example).
 
 There is currently no way to attach these files to the form in a way that would mimic a file that was selected by the user in the browser.
 
