@@ -43,19 +43,22 @@ The options that the `install` method takes, along with its default values, are:
 
 ```javascript
 install({
-  accessKey: undefined,     // The key provided by JobCloud to identify your app.
+  accessKey: 'unique key',  // The key provided by JobCloud to identify your app.
                             // Please contact service@jobs.ch
+                            // Define any string when using the 'test' environment.
 
-  locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en'.
+  env: 'prod',              // Setting 'test' here boots the SDK in test mode which
+                            // can be used to test the implementation without hitting
+                            // the actual JobCloud oAuth service. Also a genuine accessKey
+                            // is not needed.
 
   injectElement: undefined, // A query selector string that references the HTML
                             // element in which the ApplyWith button will be rendered.
                             // Examples would be '#elementId' or '.elementClass'.
+                            // Make sure that the injectElement is available on the DOM
+                            // when you call `install`.
 
-  env: 'prod'               // Setting 'test' here boots the SDK in test mode which
-                            // can be used to test the implementation without hitting
-                            // the actual JobCloud oAuth service. Also a genuine accessKey
-                            // is not needed.
+  locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en'.
 
   callback: (data) => {}    // The callback function that gets called when the process was
                             // successful to provide the applicants data. Use this to
@@ -99,6 +102,20 @@ There is currently no way to attach these files to the form in a way that would 
 2. `npm install` to fetch dependencies.
 3. `npm run example` to run the example.
 4. Open [`localhost:8082/index.html`](http://localhost:8082/index.html), press the applyWith button and send the application. The attachments are now uploaded and saved to `example/uploads`.
+
+It's important to serve the page containing the ApplyWith button through a webserver. Otherwise the authentication will fail.
+In that case the browser console will show the following error:
+* Firefox
+    ```
+    SyntaxError: An invalid or illegal string was specified
+    oauth-test-button.html:39
+    ```
+* Chrome
+    ```
+    Failed to execute 'postMessage' on 'DOMWindow': The target origin
+    provided ('file://') does not match the recipient window's origin ('null').
+    oauth-test-button.html?color=blue&accessKey=my-prod-key&parent=file%3A%2F%2F:39
+    ```
 
 ## Contribution Quickstart
 
