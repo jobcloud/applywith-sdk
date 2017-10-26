@@ -44,7 +44,7 @@ The options that the `install` method takes, along with its default values, are:
 ```javascript
 install({
   accessKey: undefined,     // The key provided by JobCloud to identify your app.
-                            // Please contact service@jobs.ch
+                            // Please contact applywith@jobcloud.ch
 
   locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en'.
 
