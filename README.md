@@ -5,6 +5,8 @@
 
 [`@jobcloud/applywith-sdk`](https://www.npmjs.com/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch profile, including their CV and uploaded documents.
 
+In order to use it in production, you need an access key. Please contact [applywith@jobcloud.ch](mailto:applywith@jobcloud.ch) alongside with a logo image (400x400px) and the domain you want to run it on.
+
 ## Installation
 
 Using [npm](https://www.npmjs.com/):
@@ -44,12 +46,12 @@ The options that the `install` method takes, along with its default values, are:
 ```javascript
 install({
   accessKey: 'unique key',  // The key provided by JobCloud to identify your app.
-                            // Please contact service@jobs.ch
+                            // Please contact applywith@jobcloud.ch to get a personal key.
                             // Define any string when using the 'test' environment.
 
   env: 'prod',              // Setting 'test' here boots the SDK in test mode which
                             // can be used to test the implementation without hitting
-                            // the actual JobCloud oAuth service. Also a genuine accessKey
+                            // the actual JobCloud OAuth service. Also a genuine accessKey
                             // is not needed.
 
   injectElement: undefined, // A query selector string that references the HTML
