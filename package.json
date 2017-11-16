@@ -52,7 +52,7 @@
     "eslint": "^3.19.0",
     "eslint-plugin-prettier": "^2.1.1",
     "express": "^4.15.3",
-    "flow-bin": "^0.47.0",
+    "flow-bin": "^0.59.0",
     "gzip-size": "^3.0.0",
     "http-server": "^0.10.0",
     "in-publish": "^2.0.0",
