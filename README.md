@@ -5,6 +5,8 @@
 
 [`@jobcloud/applywith-sdk`](https://www.npmjs.com/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch profile, including their CV and uploaded documents.
 
+In order to use it in production, you need an access key. Please contact [applywith@jobcloud.ch](mailto:applywith@jobcloud.ch) alongside with a logo image (400x400px) and the domain you want to run it on.
+
 ## Installation
 
 Using [npm](https://www.npmjs.com/):
@@ -43,19 +45,22 @@ The options that the `install` method takes, along with its default values, are:
 
 ```javascript
 install({
-  accessKey: undefined,     // The key provided by JobCloud to identify your app.
-                            // Please contact service@jobs.ch
+  accessKey: 'unique key',  // The key provided by JobCloud to identify your app.
+                            // Please contact applywith@jobcloud.ch to get a personal key.
+                            // Define any string when using the 'test' environment.
 
-  locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en'.
+  env: 'prod',              // Setting 'test' here boots the SDK in test mode which
+                            // can be used to test the implementation without hitting
+                            // the actual JobCloud OAuth service. Also a genuine accessKey
+                            // is not needed.
 
   injectElement: undefined, // A query selector string that references the HTML
                             // element in which the ApplyWith button will be rendered.
                             // Examples would be '#elementId' or '.elementClass'.
+                            // Make sure that the injectElement is available on the DOM
+                            // when you call `install`.
 
-  env: 'prod'               // Setting 'test' here boots the SDK in test mode which
-                            // can be used to test the implementation without hitting
-                            // the actual JobCloud oAuth service. Also a genuine accessKey
-                            // is not needed.
+  locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en'.
 
   callback: (data) => {}    // The callback function that gets called when the process was
                             // successful to provide the applicants data. Use this to
@@ -89,7 +94,7 @@ The `callback` option gets called on success with the following data structure:
 
 ### Handling documents
 
-The SDK will provide the documents a user has attached to his or her profile as base64 encoded strings together with a file name and the mime type. In order to save them on your server you'll need to decode them first. This strongly depends on your used server stack. An example on how to do this in an `nodejs` environment can be found in the [examples folder](https://github.com/jobcloud/applywith-sdk/tree/develop/examples).
+The SDK will provide the documents a user has attached to his or her profile as base64 encoded strings together with a file name and the mime type. In order to save them on your server you'll need to decode them first. This strongly depends on your used server stack. An example on how to do this in an `nodejs` environment can be found in the [example folder](https://github.com/jobcloud/applywith-sdk/tree/develop/example).
 
 There is currently no way to attach these files to the form in a way that would mimic a file that was selected by the user in the browser.
 
@@ -99,6 +104,20 @@ There is currently no way to attach these files to the form in a way that would 
 2. `npm install` to fetch dependencies.
 3. `npm run example` to run the example.
 4. Open [`localhost:8082/index.html`](http://localhost:8082/index.html), press the applyWith button and send the application. The attachments are now uploaded and saved to `example/uploads`.
+
+It's important to serve the page containing the ApplyWith button through a webserver. Otherwise the authentication will fail.
+In that case the browser console will show the following error:
+* Firefox
+    ```
+    SyntaxError: An invalid or illegal string was specified
+    oauth-test-button.html:39
+    ```
+* Chrome
+    ```
+    Failed to execute 'postMessage' on 'DOMWindow': The target origin
+    provided ('file://') does not match the recipient window's origin ('null').
+    oauth-test-button.html?color=blue&accessKey=my-prod-key&parent=file%3A%2F%2F:39
+    ```
 
 ## Contribution Quickstart
 
