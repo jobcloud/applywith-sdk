@@ -39,24 +39,25 @@ export default (config: SDKConfig): SDKSecureConfig => {
     parsedConfig.colorVariant = 'blue';
   }
 
+  parsedConfig.useFileRefs = !!config.useFileRefs;
+
   const enpointSearch =
     `?client_id=${parsedConfig.accessKey}&` +
     `redirect_uri=${encodeURIComponent(window.location.origin)}&` +
     'approval_prompt=auto&response_type=code&' +
     'scopes=user_cv_basic_data+user_cv_documents+user_basic_information&' +
-    'state=default_state&use_message=1&slim=1';
+    `state=default_state&use_message=1&slim=1&use_file_refs=${parsedConfig.useFileRefs ? 1 : 0}`;
 
-  parsedConfig.oAuthEndpoint = typeof config.oAuthEndpoint === 'string'
-    ? `${config.oAuthEndpoint}${enpointSearch}`
-    : `${hosts[env].getOAuthPath(parsedConfig.locale)}${enpointSearch}`;
+  parsedConfig.oAuthEndpoint =
+    typeof config.oAuthEndpoint === 'string'
+      ? `${config.oAuthEndpoint}${enpointSearch}`
+      : `${hosts[env].getOAuthPath(parsedConfig.locale)}${enpointSearch}`;
 
-  parsedConfig.oAuthButtonPath = typeof config.oAuthButtonPath === 'string'
-    ? config.oAuthButtonPath
-    : hosts[env].getButtonPath(parsedConfig.locale);
+  parsedConfig.oAuthButtonPath =
+    typeof config.oAuthButtonPath === 'string' ? config.oAuthButtonPath : hosts[env].getButtonPath(parsedConfig.locale);
 
-  parsedConfig.oAuthProxyPath = typeof config.oAuthProxyPath === 'string'
-    ? config.oAuthProxyPath
-    : hosts[env].getProxyPath(parsedConfig.locale);
+  parsedConfig.oAuthProxyPath =
+    typeof config.oAuthProxyPath === 'string' ? config.oAuthProxyPath : hosts[env].getProxyPath(parsedConfig.locale);
 
   const originalSelector = (parsedConfig.injectElement = config.injectElement);
   if (parsedConfig && typeof parsedConfig.injectElement === 'string') {
@@ -68,9 +69,9 @@ export default (config: SDKConfig): SDKSecureConfig => {
     !('appendChild' in parsedConfig.injectElement)
   ) {
     throw new Error(
-      `Invalid or missing "injectElement" config option. The element "${typeof originalSelector === 'string'
-        ? originalSelector
-        : ''}" could not be found on the page or is undefined.`
+      `Invalid or missing "injectElement" config option. The element "${
+        typeof originalSelector === 'string' ? originalSelector : ''
+      }" could not be found on the page or is undefined.`
     );
   }
   return parsedConfig;

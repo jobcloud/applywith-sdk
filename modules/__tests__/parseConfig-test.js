@@ -26,7 +26,10 @@ describe('parseConfig', () => {
       let config;
       beforeEach(() => {
         spyOn(console, 'warn');
-        config = parseConfig({ accessKey: 'fd00', injectElement: createInjectElement() });
+        config = parseConfig({
+          accessKey: 'fd00',
+          injectElement: createInjectElement(),
+        });
       });
 
       it('warns user', () => {
@@ -43,7 +46,11 @@ describe('parseConfig', () => {
       let config;
       beforeEach(() => {
         spyOn(console, 'warn');
-        config = parseConfig({ accessKey: 'fd00', injectElement: createInjectElement(), locale: 'it' });
+        config = parseConfig({
+          accessKey: 'fd00',
+          injectElement: createInjectElement(),
+          locale: 'it',
+        });
       });
 
       it('warns user', () => {
@@ -60,7 +67,11 @@ describe('parseConfig', () => {
 
     describe('on undefined callback', () => {
       it('uses implicit callback', () => {
-        const config = parseConfig({ accessKey: 'fd00', injectElement: createInjectElement(), locale: 'de' });
+        const config = parseConfig({
+          accessKey: 'fd00',
+          injectElement: createInjectElement(),
+          locale: 'de',
+        });
         expect(config.callback).toBeDefined();
       });
     });
@@ -76,7 +87,13 @@ describe('parseConfig', () => {
     });
 
     it('throws on invalid selector', () => {
-      expect(() => parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: '#not-found' })).toThrow(
+      expect(() =>
+        parseConfig({
+          accessKey: 'fd00',
+          locale: 'de',
+          injectElement: '#not-found',
+        })
+      ).toThrow(
         new Error(
           'Invalid or missing "injectElement" config option. The element "#not-found" could not be found on the page or is undefined.'
         )
@@ -99,7 +116,13 @@ describe('parseConfig', () => {
     it('parses and selects element query', () => {
       const element = createInjectElement();
       document.body.appendChild(element);
-      expect(parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: '#outlet' }).injectElement).toEqual(element);
+      expect(
+        parseConfig({
+          accessKey: 'fd00',
+          locale: 'de',
+          injectElement: '#outlet',
+        }).injectElement
+      ).toEqual(element);
     });
   });
 
@@ -119,18 +142,26 @@ describe('parseConfig', () => {
   describe('oAuthEndpoint', () => {
     it('creates default endpoint', () => {
       expect(
-        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() }).oAuthEndpoint
+        parseConfig({
+          accessKey: 'fd00',
+          locale: 'de',
+          injectElement: createInjectElement(),
+        }).oAuthEndpoint
       ).toEqual(
-        'https://www.jobs.ch/de/auth/oauth/?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1'
+        'https://www.jobs.ch/de/auth/oauth/?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1&use_file_refs=0'
       );
     });
 
     it('creates test endpoint', () => {
       expect(
-        parseConfig({ accessKey: 'fd00', locale: 'de', env: 'test', injectElement: createInjectElement() })
-          .oAuthEndpoint
+        parseConfig({
+          accessKey: 'fd00',
+          locale: 'de',
+          env: 'test',
+          injectElement: createInjectElement(),
+        }).oAuthEndpoint
       ).toEqual(
-        'https://www.jobs.ch/public/support/oauth-test-login.html?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1'
+        'https://www.jobs.ch/public/support/oauth-test-login.html?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1&use_file_refs=0'
       );
     });
 
@@ -143,7 +174,7 @@ describe('parseConfig', () => {
           oAuthEndpoint: 'http://kittens.com',
         }).oAuthEndpoint
       ).toEqual(
-        'http://kittens.com?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1'
+        'http://kittens.com?client_id=fd00&redirect_uri=http%3A%2F%2Flocalhost%3A8080&approval_prompt=auto&response_type=code&scopes=user_cv_basic_data+user_cv_documents+user_basic_information&state=default_state&use_message=1&slim=1&use_file_refs=0'
       );
     });
   });
@@ -151,27 +182,44 @@ describe('parseConfig', () => {
   describe('colorVariant', () => {
     it('defaults to blue variant', () => {
       expect(
-        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() }).colorVariant
+        parseConfig({
+          accessKey: 'fd00',
+          locale: 'de',
+          injectElement: createInjectElement(),
+        }).colorVariant
       ).toEqual('blue');
     });
 
     it('can be overwritten', () => {
       expect(
-        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement(), colorVariant: 'white' })
-          .colorVariant
+        parseConfig({
+          accessKey: 'fd00',
+          locale: 'de',
+          injectElement: createInjectElement(),
+          colorVariant: 'white',
+        }).colorVariant
       ).toEqual('white');
     });
 
     it('does not warn user if missing', () => {
       spyOn(console, 'warn');
-      parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() });
+      parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+      });
       expect(console.warn.calls.count()).toEqual(0);
     });
 
     describe('with unsupported color', () => {
       it('warns user', () => {
         spyOn(console, 'warn');
-        parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement(), colorVariant: 'green' });
+        parseConfig({
+          accessKey: 'fd00',
+          locale: 'de',
+          injectElement: createInjectElement(),
+          colorVariant: 'green',
+        });
         expect(console.warn.calls.count()).toEqual(1);
         expect(console.warn.calls.argsFor(0)[0]).toContain(
           'JobCloudSDK: Color "green" is not supported. Falling back to "blue".'
@@ -193,7 +241,11 @@ describe('parseConfig', () => {
 
   describe('oAuthButtonPath', () => {
     it('creates default path', () => {
-      const config = parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() });
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+      });
       expect(config.oAuthButtonPath).toEqual('https://www.jobs.ch/de/auth/apply-with-button/');
     });
     it('creates test path', () => {
@@ -218,7 +270,11 @@ describe('parseConfig', () => {
 
   describe('oAuthProxyPath', () => {
     it('creates default path', () => {
-      const config = parseConfig({ accessKey: 'fd00', locale: 'de', injectElement: createInjectElement() });
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+      });
       expect(config.oAuthProxyPath).toEqual('https://www.jobs.ch/public/support/oauth-xdomain-proxy.html');
     });
     it('creates test path', () => {
@@ -238,6 +294,35 @@ describe('parseConfig', () => {
         oAuthProxyPath: 'http://kittens.com',
       });
       expect(config.oAuthProxyPath).toEqual('http://kittens.com');
+    });
+  });
+
+  describe('useFileRefs', () => {
+    it('applies config parameter', () => {
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+        useFileRefs: true,
+      });
+      expect(config.useFileRefs).toBe(true);
+    });
+    it('sets flag on oAuthEndpoint', () => {
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+        useFileRefs: true,
+      });
+      expect(config.oAuthEndpoint).toContain('&use_file_refs=1');
+    });
+    it('falls back to false', () => {
+      const config = parseConfig({
+        accessKey: 'fd00',
+        locale: 'de',
+        injectElement: createInjectElement(),
+      });
+      expect(config.useFileRefs).toBe(false);
     });
   });
 });

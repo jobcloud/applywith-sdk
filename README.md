@@ -1,6 +1,7 @@
-# JobCloud ApplyWith SDK [![npm package][npm-badge]][npm]
+# JobCloud ApplyWith SDK [npm]
 
-[npm-badge]: https://img.shields.io/npm/v/@jobcloud/applywith-sdk.svg?style=flat-square
+[![npm version](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk.png)](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk)
+
 [npm]: https://www.npmjs.org/package/@jobcloud/applywith-sdk
 
 [`@jobcloud/applywith-sdk`](https://www.npmjs.com/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch profile, including their CV and uploaded documents.
@@ -62,6 +63,11 @@ install({
 
   locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en'.
 
+  useFileRefs: false,       // Setting this to true will remove the binary data for the
+                            // documents in the callback. Instead files will be delivered
+                            // as a url from which the files can be downloaded. Setting this
+                            // is recommended for bandwidth reasons.
+
   callback: (data) => {}    // The callback function that gets called when the process was
                             // successful to provide the applicants data. Use this to
                             // map the data to the application form.
@@ -86,7 +92,8 @@ The `callback` option gets called on success with the following data structure:
   },
   documents?: Array<{
     mimeType: string,
-    binary: string,
+    binary?: string,       (only when useFileRefs = false / deprecated)
+    transientUrl?: string, (only when useFileRefs = true)
     fileName: string,
   }>,
 }
@@ -94,9 +101,17 @@ The `callback` option gets called on success with the following data structure:
 
 ### Handling documents
 
+#### Using References
+
+When the `useFileRefs` flag in the configuration is set to true, the callback will respond with urls from which the profile documents can be downloaded. These urls will work for 24 hours after creation for security reasons. To not break backwards compartibilliy, this flag is not set by default - but enabling it is the recommended way to recieve the documents as using the binary data puts a strain on bandwith for potential mobile end users.
+
+#### Using Binary Data (Deprecated)
+
 The SDK will provide the documents a user has attached to his or her profile as base64 encoded strings together with a file name and the mime type. In order to save them on your server you'll need to decode them first. This strongly depends on your used server stack. An example on how to do this in an `nodejs` environment can be found in the [example folder](https://github.com/jobcloud/applywith-sdk/tree/develop/example).
 
 There is currently no way to attach these files to the form in a way that would mimic a file that was selected by the user in the browser.
+
+> This approach will be removed in version 2.0.0
 
 ## Running the example
 

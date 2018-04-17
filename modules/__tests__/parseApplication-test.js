@@ -49,6 +49,7 @@ describe('parseApplication', () => {
         {
           mime_type: 'application/pdf',
           binary_data: 'ffff',
+          media_api_url: 'http://some.url',
           filename: 'document.pdf',
         },
       ],
@@ -81,6 +82,7 @@ describe('parseApplication', () => {
       expect(docs[0]).toEqual({
         mimeType: 'application/pdf',
         binary: 'ffff',
+        transientUrl: 'http://some.url',
         fileName: 'document.pdf',
       });
     });
