@@ -30,7 +30,6 @@ In this example, you can see the file response when the SDK was set to `useFileR
       expires: 1525080413
     }
   ]
-  }
 }
 ```
 

@@ -13,7 +13,7 @@ No. ApplyWith SDK provides _data_ that can be filled up e.g. into an application
 
 ## Visually - how does it look like?
 
-ApplyWith SDK is visually represented as a button "_Apply with jobs.ch_". By clicking on the button, a pop-up (Desktop) or new window (Mobile) is opened, asking users to allow the tr ansfer of data to the career site that requested them.
+ApplyWith SDK is visually represented as a button "_Apply with jobs.ch_". By clicking on the button, a pop-up (Desktop) or new window (Mobile) is opened, asking users to allow the transfer of data to the career site that requested them.
 
 ## What do I need to implement?
 
