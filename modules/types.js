@@ -81,6 +81,8 @@ export type API10ApplicationPayload = {
     mime_type: string,
     binary_data?: string,
     media_api_url?: string,
+    file_size?: number,
+    expires?: number,
     filename: string,
   }>,
   CV?: {
@@ -106,6 +108,8 @@ export type Application = {
     mimeType: string,
     binary?: string,
     transientUrl?: string,
+    fileSize?: number,
+    expires?: number,
     fileName: string,
   }>,
 };

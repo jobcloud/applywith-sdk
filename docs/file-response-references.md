@@ -19,13 +19,15 @@ In this example, you can see the file response when the SDK was set to `useFileR
       mimeType: 'application/pdf',
       transientUrl: 'https://media.jobs.ch/media/280d8fce-efc3-42f5-9c06-606aba92e2d3/cv-ann-boile.pdf?token=8d62',
       fileName: 'cv-ann-boile.pdf',
-      fileSize: 450214
+      fileSize: 450214,
+      expires: 1525080413
     },
     {
       mimeType: 'image/jpeg',
       transientUrl: 'https://media.jobs.ch/media/ae50d8b32-87bd-12d1-cb71-145dde92a8a9/portrait-image-ann-boile.jpg?token=cf23',
       fileName: 'portrait-image-ann-boile.jpg',
-      fileSize: 856234
+      fileSize: 856234,
+      expires: 1525080413
     }
   ]
   }

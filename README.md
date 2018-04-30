@@ -102,6 +102,8 @@ The `callback` option gets called on success with the following data structure:
     mimeType: string,
     binary?: string,       (only when useFileRefs = false / deprecated)
     transientUrl?: string, (only when useFileRefs = true)
+    fileSize?: number,     (only when useFileRefs = true / in bytes)
+    expires?: number,      (only when useFileRefs = true / unix timestamp)
     fileName: string,
   }>,
 }
@@ -111,7 +113,7 @@ The `callback` option gets called on success with the following data structure:
 
 #### Using References
 
-When the `useFileRefs` flag in the configuration is set to true, the callback will respond with urls from which the profile documents can be downloaded. These urls will work for 24 hours after creation for security reasons. To not break backwards compartibilliy, this flag is not set by default - but enabling it is the recommended way to recieve the documents as using the binary data puts a strain on bandwith for potential mobile end users.
+When the `useFileRefs` flag in the configuration is set to true, the callback will respond with urls from which the profile documents can be downloaded. These urls will work for 24 hours (see `expires` field) after creation for security reasons. To not break backwards compartibilliy, this flag is not set by default - but enabling it is the recommended way to recieve the documents as using the binary data puts a strain on bandwith for potential mobile end users.
 
 See the [files response example](documentation/file-response-references.md) when setting `useFileRefs: true`.
 #### Using Binary Data (Deprecated)
