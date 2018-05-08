@@ -19,6 +19,8 @@ export type SDKConfig = {
   +callback?: ApplicationCallback,
   // Hosts configuration
   +env?: Env,
+  // Use filre refs instead of blobs
+  +useFileRefs: boolean,
 
   // -- Really optional fields
 
@@ -41,6 +43,7 @@ export type SDKSecureConfig = {
   callback: ApplicationCallback,
   oAuthButtonPath?: string,
   oAuthProxyPath: string,
+  useFileRefs: boolean,
 };
 
 export type ApplyButtonClickHandler = () => void;
@@ -76,7 +79,10 @@ export type API10ApplicationPayload = {
   },
   AdditionalDocuments?: Array<{
     mime_type: string,
-    binary_data: string,
+    binary_data?: string,
+    media_api_url?: string,
+    file_size?: number,
+    expires?: number,
     filename: string,
   }>,
   CV?: {
@@ -100,7 +106,10 @@ export type Application = {
   },
   documents?: Array<{
     mimeType: string,
-    binary: string,
+    binary?: string,
+    transientUrl?: string,
+    fileSize?: number,
+    expires?: number,
     fileName: string,
   }>,
 };

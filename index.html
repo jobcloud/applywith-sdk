@@ -36,6 +36,10 @@
         <ul id="app-attachments"></ul>
       </fieldset>
       <fieldset>
+        <h3>Attachments (useFileRefs):</h3>
+        <ul id="app-attachments-ref"></ul>
+      </fieldset>
+      <fieldset>
         <input type="submit" />
       </fieldset>
     </form>
@@ -53,6 +57,18 @@
         $input.setAttribute('name', 'attachment[' + name + ']');
         $input.setAttribute('value', base64String);
         $form.appendChild($input);
+      }
+
+      var createImage = function(url) {
+        var $attchments = document.querySelector('#app-attachments-ref');
+
+        var $image = document.createElement('img');
+        $image.src = url;
+
+        var $listItem = document.createElement('li');
+        $listItem.appendChild($image);
+
+        $attchments.appendChild($listItem);
       }
 
       var sdkCallback = function(app) {
@@ -82,7 +98,10 @@
         }
         if (app.documents) {
           app.documents.forEach(function (doc) {
-            createAttachment(doc.fileName, doc.mimeType, doc.binary)
+            createAttachment(doc.fileName, doc.mimeType, doc.binary);
+            if (doc.transientUrl) {
+              createImage(doc.transientUrl);
+            }
           });
         }
       }
@@ -90,6 +109,7 @@
       JobCloudSDK.install({
         accessKey: '22_ffff',
         injectElement: '#jobcloud-outlet',
+        useFileRefs: true,
         locale: 'de',
         env: 'dev', // prod, test, dev
         callback: sdkCallback

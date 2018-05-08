@@ -29,6 +29,9 @@ export default (response: API10ApplicationPayload): Application => {
       mimeType: doc.mime_type,
       binary: doc.binary_data,
       fileName: doc.filename,
+      transientUrl: doc.media_api_url,
+      fileSize: doc.file_size,
+      expires: doc.expires,
     }));
   } else {
     app.documents = [];
