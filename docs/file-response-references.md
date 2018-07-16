@@ -35,4 +35,4 @@ In this example, you can see the file response when the SDK was set to `useFileR
 
 ## Comments
 * Please mind that with setting `useFileRefs = true` there is *no* `cv` object in the data structure.
-* The links in the `transientUrl` have an expiry time of 24 hours. Do *not* include them in an application e-mail, do *no* store them persistently. We recommend to download the files immediately after receiving the response.
+* The links in the `transientUrl` have an expiry time of 24 hours. Do *not* include them in an application e-mail, do *not* store them persistently. We recommend to download the files immediately after receiving the response.
