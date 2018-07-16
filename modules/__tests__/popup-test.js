@@ -31,7 +31,7 @@ describe('popup', () => {
     });
     it('sets correct options', () => {
       expect(window.open.calls.argsFor(0)[2]).toEqual(
-        'width=819,height=384,left=102,top=48,toolbar=0,menubar=0,location=0,resizable=1'
+        'width=780,height=700,left=200,top=200,toolbar=0,menubar=0,location=0,resizable=1'
       );
     });
     it('focuses after opening', () => {

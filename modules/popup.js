@@ -9,10 +9,10 @@ export default (options: PopupOptions, callback: ?Function) => {
 
   return {
     open: () => {
-      const width = Math.min(Math.floor(window.outerWidth * 0.8), 1000);
-      const height = Math.min(Math.floor(window.outerHeight * 0.5), 630);
-      const left = Math.floor(window.screenX + (window.outerWidth - width) / 2);
-      const top = Math.floor(window.screenY + (window.outerHeight - height) / 8);
+      const width = 780;
+      const height = 700;
+      const left = window.screenX + 200;
+      const top = window.screenY + 200;
       const windowString = `width=${width},height=${height},left=${left},top=${top},toolbar=0,menubar=0,location=0,resizable=1`;
 
       pWindow = window.open(options.endpoint, 'Authorization', windowString);
