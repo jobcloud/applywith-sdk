@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        color: #ffffff;
+        margin: 0;
+      }
+      a {
+        background-color: #004099;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 5px;
+        max-height: 50px;
+        cursor: pointer;
+      }
+      h1 {
+        font-size: 18px;
+        line-height: 15px;
+      }
+    </style>
+    <script src="https://unpkg.com/qs/dist/qs.js"></script>
+  </head>
+  <body>
+    <a id="applywith-button">
+      <h1>DEV SDK Button</h1>
+    </a>
+    <script type="text/javascript">
+      (function initButton() {
+        const button = document.querySelector('#applywith-button');
+        const query = Qs.parse(window.location.search.substring(1));
+        button.addEventListener('click', function() {
+          if (query.parent && window.parent) {
+            window.parent.postMessage(JSON.stringify({
+              type: '@jobcloud/click'
+            }), decodeURIComponent(query.parent));
+          } else {
+            console.warn('No parent window defined');
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

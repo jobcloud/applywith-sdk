@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buttonFrame renders renders frame with correct default structure 1`] = `
+"<iframe src=\\"https://www.jobs.ch/de/auth/apply-with-button/?color=blue&amp;accessKey=d4609c6b-38c7-4b2b-8ef4-26a715d29593&amp;parent=http%3A%2F%2Flocalhost%3A8080\\" frameborder=\\"0\\" scrolling=\\"no\\" sandbox=\\"allow-scripts allow-same-origin\\" style=\\"
+  width: 217px;
+  height: 50px;
+  border: 0;
+\\"></iframe>"
+`;

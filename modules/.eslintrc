@@ -1,13 +1,15 @@
 {
+  "parser": "babel-eslint",
   "plugins": [
     "prettier"
   ],
   "rules": {
     "prettier/prettier": ["error", {
       "singleQuote": true,
-      "trailingComma": "all",
-      "bracketSpacing": false,
-      "parser": "flow"
+      "trailingComma": "es5",
+      "bracketSpacing": true,
+      "parser": "flow",
+      "printWidth": 120
     }]
   },
   "env": {
@@ -15,5 +17,6 @@
   },
   "parserOptions": {
       "ecmaVersion": 7,
+      "sourceType": "module"
   }
 }
