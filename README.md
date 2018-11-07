@@ -1,8 +1,8 @@
 # JobCloud ApplyWith SDK
 
-[![npm version](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk.png)](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk)
+[![yarn version](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk.png)](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk)
 
-[`@jobcloud/applywith-sdk`](https://www.npmjs.com/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch profile, including their CV and uploaded documents.
+[`@jobcloud/applywith-sdk`](https://yarnpkg.com/en/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch profile, including their CV and uploaded documents.
 
 In order to use it in production, you need an access key. Please contact [applywith@jobcloud.ch](mailto:applywith@jobcloud.ch) alongside with a logo image (400x400px) and the domain you want to run it on.
 
@@ -18,9 +18,9 @@ Please read through this documentation before starting the implementation. We ad
 
 ## Installation
 
-Using [npm](https://www.npmjs.com/):
+Using [yarn](https://yarnpkg.com/lang/en/):
 
-    $ npm install --save @jobcloud/applywith-sdk
+    $ yarn install --save @jobcloud/applywith-sdk
 
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
 
@@ -98,6 +98,7 @@ The `callback` option gets called on success with the following data structure:
     mimeType: string,
     binary: string,
   },
+  picture?: string,
   documents?: Array<{
     mimeType: string,
     binary?: string,       (only when useFileRefs = false / deprecated)
@@ -105,6 +106,7 @@ The `callback` option gets called on success with the following data structure:
     fileSize?: number,     (only when useFileRefs = true / in bytes)
     expires?: number,      (only when useFileRefs = true / unix timestamp)
     fileName: string,
+    tags?: Array<string>,
   }>,
 }
 ```
@@ -129,8 +131,8 @@ See the [files response example](docs/file-response-binaries.md) when setting `u
 ## Running the example
 
 1. Clone this project and `cd` into the directory.
-2. `npm install` to fetch dependencies.
-3. `npm run example` to run the example.
+2. `yarn install` to fetch dependencies.
+3. `yarn run example` to run the example.
 4. Open [`localhost:8082/index.html`](http://localhost:8082/index.html), press the applyWith button and send the application. The attachments are now uploaded and saved to `example/uploads`.
 
 It's important to serve the page containing the ApplyWith button through a webserver. Otherwise the authentication will fail.

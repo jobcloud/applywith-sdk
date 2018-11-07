@@ -32,6 +32,10 @@
         <label>Country: </label><input name="country" id="app-country" type="text" />
       </fieldset>
       <fieldset>
+        <h3>Picture:</h3>
+        <div id="app-picture"></div>
+      </fieldset>
+      <fieldset>
         <h3>Attachments:</h3>
         <ul id="app-attachments"></ul>
       </fieldset>
@@ -44,23 +48,33 @@
       </fieldset>
     </form>
     <script type="text/javascript">
-      var createAttachment = function(name, mimeType, base64String) {
-        var $attchments = document.querySelector('#app-attachments');
+      var createPicture = function(url) {
+        var $picture = document.querySelector('#app-picture');
+
+        var $image = document.createElement('img');
+        $image.src = url;
+
+        $picture.appendChild($image);
+      }
+
+      var createAttachment = function(name, mimeType, base64String, tags) {
+        var $attachments = document.querySelector('#app-attachments');
         var $form = document.querySelector('#app-form');
         // Create visible list item
         var $listItem = document.createElement('li');
         $listItem.textContent = name + ' (' + mimeType + ')';
-        $attchments.appendChild($listItem);
+        $attachments.appendChild($listItem);
         // Create hidden form input
         var $input = document.createElement('input');
         $input.setAttribute('type', 'hidden');
         $input.setAttribute('name', 'attachment[' + name + ']');
         $input.setAttribute('value', base64String);
+        $input.setAttribute('data-tags', tags.join(', '));
         $form.appendChild($input);
       }
 
       var createImage = function(url) {
-        var $attchments = document.querySelector('#app-attachments-ref');
+        var $attachments = document.querySelector('#app-attachments-ref');
 
         var $image = document.createElement('img');
         $image.src = url;
@@ -68,7 +82,7 @@
         var $listItem = document.createElement('li');
         $listItem.appendChild($image);
 
-        $attchments.appendChild($listItem);
+        $attachments.appendChild($listItem);
       }
 
       var sdkCallback = function(app) {
@@ -91,14 +105,19 @@
           document.querySelector('#app-country').value = app.country;
         }
 
-        // Create list of attachments
-        var $attchments = document.querySelector('#app-attachments');
-        if (app.cv) {
-          createAttachment('JobCloud_CV.pdf', app.cv.mimeType, app.cv.binary);
+        if (app.picture) {
+          createPicture(app.picture);
         }
+
+        // Create list of attachments
+        var $attachments = document.querySelector('#app-attachments');
+        if (app.cv) {
+          createAttachment('JobCloud_CV.pdf', app.cv.mimeType, app.cv.binary, []);
+        }
+
         if (app.documents) {
           app.documents.forEach(function (doc) {
-            createAttachment(doc.fileName, doc.mimeType, doc.binary);
+            createAttachment(doc.fileName, doc.mimeType, doc.binary, doc.tags || []);
             if (doc.transientUrl) {
               createImage(doc.transientUrl);
             }

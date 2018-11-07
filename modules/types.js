@@ -84,7 +84,9 @@ export type API10ApplicationPayload = {
     file_size?: number,
     expires?: number,
     filename: string,
+    tags?: Array<string>,
   }>,
+  Picture?: string,
   CV?: {
     mime_type: string,
     binary_data: string,
@@ -104,6 +106,7 @@ export type Application = {
     mimeType: string,
     binary: string,
   },
+  picture?: string,
   documents?: Array<{
     mimeType: string,
     binary?: string,
@@ -111,6 +114,7 @@ export type Application = {
     fileSize?: number,
     expires?: number,
     fileName: string,
+    tags?: Array<string>,
   }>,
 };
 

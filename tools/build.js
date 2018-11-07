@@ -5,7 +5,7 @@ const prettyBytes = require('pretty-bytes');
 const gzipSize = require('gzip-size');
 const chalk = require('chalk');
 
-// Exit if the tool runs a part of `npm install`
+// Exit if the tool runs a part of `yarn install`
 if (inInstall()) process.exit(0);
 
 const exec = (command, extraEnv) =>
