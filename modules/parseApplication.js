@@ -9,6 +9,7 @@ export default (response: API10ApplicationPayload): Application => {
     firstName: response.FirstName ? response.FirstName : undefined,
     lastName: response.Surname ? response.Surname : undefined,
     phone: response.PhoneNumber,
+    picture: response.Picture,
   };
 
   if (typeof response.Address === 'object' && response.Address !== null) {
@@ -32,6 +33,7 @@ export default (response: API10ApplicationPayload): Application => {
       transientUrl: doc.media_api_url,
       fileSize: doc.file_size,
       expires: doc.expires,
+      tags: doc.tags,
     }));
   } else {
     app.documents = [];

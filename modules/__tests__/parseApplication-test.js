@@ -45,6 +45,7 @@ describe('parseApplication', () => {
         mime_type: 'application/pdf',
         binary_data: 'ffab',
       },
+      Picture: 'http://some.url',
       AdditionalDocuments: [
         {
           mime_type: 'application/pdf',
@@ -53,6 +54,7 @@ describe('parseApplication', () => {
           file_size: 10000,
           expires: 20000,
           filename: 'document.pdf',
+          tags: ['cv'],
         },
       ],
     };
@@ -88,6 +90,7 @@ describe('parseApplication', () => {
         fileName: 'document.pdf',
         fileSize: 10000,
         expires: 20000,
+        tags: ['cv'],
       });
     });
   });
