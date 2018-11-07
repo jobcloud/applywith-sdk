@@ -25,7 +25,7 @@ exec('yarn test');
 // 2) Increment the package version in package.json
 // 3) Create a new commit
 // 4) Create a v* tag that points to that commit
-exec(`yarn version ${nextVersion} -m "Version %s"`);
+exec(`yarn version --new-version  ${nextVersion} -m "Version %s"`);
 
 // 5) Publish to yarn. Use the "next" tag for pre-releases,
 // "latest" for all others
