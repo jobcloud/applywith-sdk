@@ -115,7 +115,9 @@ The `callback` option gets called on success with the following data structure:
 
 #### Using References
 
-When the `useFileRefs` flag in the configuration is set to true, the callback will respond with urls from which the profile documents can be downloaded. These urls will work for 24 hours (see `expires` field) after creation for security reasons. To not break backwards compartibilliy, this flag is not set by default - but enabling it is the recommended way to receive the documents as using the binary data puts a strain on bandwith for potential mobile end users.
+When the `useFileRefs` flag in the configuration is set to true, the callback will respond with urls from which the profile documents can be downloaded. These urls will work for 6 months (see `expires` field) after creation for security reasons. We additionally specify `tags` denoting the type of the files.
+
+To not break backwards compatibilliy, the `useFileRefs` flag is not set by default - but enabling it is the recommended way to receive the documents as using the binary data puts a strain on bandwith for potential mobile end users.
 
 See the [files response example](docs/file-response-references.md) when setting `useFileRefs: true`.
 #### Using Binary Data (Deprecated)
