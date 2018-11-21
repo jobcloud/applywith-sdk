@@ -50,4 +50,4 @@ A file can have one, multiple or no tags.
 ## Comments
 * The links in the `transientUrl` have an expiry time of 6 months. You may include them in e.g. an application email, if it is enough to have them valid for 6 months. If you need to store the files permanently, download them to your own system.
 * Please mind that with setting `useFileRefs = true` there is *no* `cv` object in the data structure.
-* Please mind that the the `picture` URL is optional and does not contain meta information.
+* Please mind that the `picture` URL is optional and does not contain meta information.
