@@ -25,7 +25,7 @@ In this example, you can see the file response when the SDK was set to `useFileR
       tags: ['cv'],
     },
     {
-      mimeType: 'image/jpeg',
+      mimeType: 'application/pdf',
       transientUrl: 'https://media.jobs.ch/media/ae50d8b32-87bd-12d1-cb71-145dde92a8a9/recommendations-and-testimony.pdf?token=cf23',
       fileName: 'recommendation-letter-ann-boile.pdf',
       fileSize: 856234,
