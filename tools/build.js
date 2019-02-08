@@ -34,7 +34,7 @@ exec('webpack modules/index.js --output umd/jobcloud-sdk.js', {
 
 console.log(chalk.blue('\n🚀  Building jobcloud-sdk.min.js ...'));
 
-exec('webpack -p modules/index.js umd/jobcloud-sdk.min.js', {
+exec('webpack -p modules/index.js --output umd/jobcloud-sdk.min.js', {
   NODE_ENV: 'production',
 });
 
