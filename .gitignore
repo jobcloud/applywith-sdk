@@ -5,3 +5,7 @@ umd
 !webpack.config.js
 example/uploads/*
 !example/uploads/.gitkeep
+dist
+
+.idea
+.vscode
