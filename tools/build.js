@@ -28,13 +28,13 @@ exec('babel modules -d es --ignore __tests__', {
 
 console.log(chalk.blue('\n🚀  Building jobcloud-sdk.js ...'));
 
-exec('webpack modules/index.js umd/jobcloud-sdk.js', {
+exec('webpack modules/index.js --output umd/jobcloud-sdk.js', {
   NODE_ENV: 'production',
 });
 
 console.log(chalk.blue('\n🚀  Building jobcloud-sdk.min.js ...'));
 
-exec('webpack -p modules/index.js umd/jobcloud-sdk.min.js', {
+exec('webpack -p modules/index.js --output umd/jobcloud-sdk.min.js', {
   NODE_ENV: 'production',
 });
 
