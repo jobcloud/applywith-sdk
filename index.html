@@ -124,13 +124,22 @@
           });
         }
       }
-
-      JobCloudSDK.install({
+      JobCloudSDK.injectButton({
+        tenant: 'jobs.ch',
         accessKey: '22_ffff',
         injectElement: '#jobcloud-outlet',
         useFileRefs: true,
         locale: 'de',
-        env: 'dev', // prod, test, dev
+        env: 'prod', // prod, test, dev
+        callback: sdkCallback
+      });
+      JobCloudSDK.injectButton({
+        tenant: 'jobup.ch',
+        accessKey: '22_ffff',
+        injectElement: '#jobcloud-outlet',
+        useFileRefs: true,
+        locale: 'en',
+        env: 'prod', // prod, test, dev
         callback: sdkCallback
       });
     </script>

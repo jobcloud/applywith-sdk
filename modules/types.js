@@ -4,6 +4,8 @@ export type Locale = 'de' | 'fr' | 'en';
 
 export type Env = 'prod' | 'test' | 'dev' | '_internal_test';
 
+export type Tenant = 'jobs.ch' | 'jobup.ch';
+
 // All SDKConfig fields are marked optional because the API is called by
 // the SDK consumer which could lead to required properties beeing undefined.
 export type SDKConfig = {
@@ -21,6 +23,8 @@ export type SDKConfig = {
   +env?: Env,
   // Use filre refs instead of blobs
   +useFileRefs: boolean,
+  // Tenant (jobs.ch | jobup.ch)
+  +tenant: Tenant,
 
   // -- Really optional fields
 
@@ -36,6 +40,7 @@ export type SDKConfig = {
 
 export type SDKSecureConfig = {
   accessKey: string,
+  tenant: Tenant,
   locale: Locale,
   injectElement: HTMLElement,
   oAuthEndpoint: string,
@@ -46,7 +51,7 @@ export type SDKSecureConfig = {
   useFileRefs: boolean,
 };
 
-export type ApplyButtonClickHandler = () => void;
+export type ApplyButtonClickHandler = (senderId?: string) => void;
 
 export type ApplyButtonColor = 'white' | 'blue';
 
@@ -59,6 +64,10 @@ export type ApplyButtonOptions = {
   +locale: Locale,
   // Used to overwrite the default path for testing purposes.
   +path?: string,
+  // Tenant: jobs.ch | jobup.ch
+  +tenant: Tenant,
+  // Sender ID, used to identify the sender button
+  +senderId: string,
 };
 
 export type PopupOptions = {

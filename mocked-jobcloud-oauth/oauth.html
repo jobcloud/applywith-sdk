@@ -12,6 +12,7 @@
           if (query.redirect_uri && window.opener) {
             var msg = JSON.stringify({
               type: '@jobcloud/application',
+              senderId: query.sender_id,
               payload: {
                 application: {
                   Email: 'tester@jobcloud.ch',

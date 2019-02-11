@@ -6,5 +6,6 @@
 <PROJECT_ROOT>/modules/.*
 
 [libs]
+flow-typed
 
 [options]

@@ -8,14 +8,15 @@ export default (options: PopupOptions, callback: ?Function) => {
   let messageEventListener;
 
   return {
-    open: () => {
+    open: (senderId?: string) => {
       const width = 780;
       const height = 700;
       const left = window.screenX + 200;
       const top = window.screenY + 200;
       const windowString = `width=${width},height=${height},left=${left},top=${top},toolbar=0,menubar=0,location=0,resizable=1`;
+      const endpointWithSenderId = `${options.endpoint}&sender_id=${senderId || 'false'}`;
 
-      pWindow = window.open(options.endpoint, 'Authorization', windowString);
+      pWindow = window.open(endpointWithSenderId, 'Authorization', windowString);
 
       if (pWindow) {
         pWindow.focus();
@@ -30,6 +31,9 @@ export default (options: PopupOptions, callback: ?Function) => {
       messageEventListener = (event: MessageEvent) => {
         const eventData = checkSecureMessage(event, '@jobcloud/application', options.endpoint);
         if (!eventData) {
+          return;
+        }
+        if (eventData.senderId !== senderId) {
           return;
         }
         if (!eventData.payload) {
