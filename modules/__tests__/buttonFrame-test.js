@@ -10,7 +10,14 @@ const spies = {
 
 const createFrame = (locale = 'de', color = 'blue', path) => {
   const container = document.createElement('div');
-  render(container, spies.clickHandler, { locale, color, path, accessKey: 'd4609c6b-38c7-4b2b-8ef4-26a715d29593' });
+  render(container, spies.clickHandler, {
+    locale,
+    color,
+    path,
+    accessKey: 'd4609c6b-38c7-4b2b-8ef4-26a715d29593',
+    tenant: 'jobs.ch',
+    senderId: 'sender001',
+  });
   return container;
 };
 
@@ -43,7 +50,10 @@ describe('buttonFrame', () => {
     it('calls clickHandler callback', done => {
       spyOn(spies, 'clickHandler').and.callFake(done);
       createFrame(undefined, undefined, 'http://localhost:8081/button.html');
-      window.postMessage(JSON.stringify({ type: '@jobcloud/click', testOrigin: 'http://localhost:8081' }), '*');
+      window.postMessage(
+        JSON.stringify({ type: '@jobcloud/click', testOrigin: 'http://localhost:8081', senderId: 'sender001' }),
+        '*'
+      );
     });
     it('shows user warning when origin does not match', done => {
       spyOn(console, 'warn').and.callFake(() => {

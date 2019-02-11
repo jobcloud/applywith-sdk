@@ -40,16 +40,18 @@ export default (config: SDKConfig): SDKSecureConfig => {
     parsedConfig.tenant = 'jobs.ch';
   }
 
-  if (config.locale && supportedLocales[config.tenant].find(code => code === config.locale)) {
+  if (config.locale && supportedLocales[parsedConfig.tenant].find(code => code === config.locale)) {
     parsedConfig.locale = config.locale;
   } else if (config.locale) {
     console.warn(
-      `JobCloudSDK: Locale "${config.locale}" is not supported. Falling back to "${defaultLocales[config.tenant]}".`
+      `JobCloudSDK: Locale "${config.locale}" is not supported. Falling back to "${
+        defaultLocales[parsedConfig.tenant]
+      }".`
     );
-    parsedConfig.locale = defaultLocales[config.tenant];
+    parsedConfig.locale = defaultLocales[parsedConfig.tenant];
   } else {
-    console.warn(`JobCloudSDK: Locale not configured. Falling back to "${defaultLocales[config.tenant]}".`);
-    parsedConfig.locale = defaultLocales[config.tenant];
+    console.warn(`JobCloudSDK: Locale not configured. Falling back to "${defaultLocales[parsedConfig.tenant]}".`);
+    parsedConfig.locale = defaultLocales[parsedConfig.tenant];
   }
 
   const hosts = getHosts(parsedConfig.tenant);
