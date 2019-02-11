@@ -16,7 +16,6 @@ const createSdk = () => {
   const sdk = {
     injectButton: (config: SDKConfig): void => {
       const parsedConfig = parseConfig(config);
-      console.log(parsedConfig);
       const senderId = uuid.v4();
       renderProxy(parsedConfig.injectElement, parsedConfig.oAuthProxyPath);
       const popup = createPopup(
