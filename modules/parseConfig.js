@@ -3,10 +3,10 @@ import getHosts from './hosts';
 
 import type { SDKConfig, SDKSecureConfig, Locale, ApplyButtonColor, Tenant } from './types';
 
-const supportedLocales: { [Tenant]: Array<Locale> } = { 'jobs.ch': ['de', 'fr', 'en'], 'jobup.ch': ['de', 'fr', 'en'] };
-const defaultLocales: { [Tenant]: Locale } = { 'jobs.ch': 'de', 'jobup.ch': 'fr' };
+const supportedLocales: { [Tenant]: Array<Locale> } = { jobs_ch: ['de', 'fr', 'en'], jobup_ch: ['de', 'fr', 'en'] };
+const defaultLocales: { [Tenant]: Locale } = { jobs_ch: 'de', jobup_ch: 'fr' };
 const supportedColors: Array<ApplyButtonColor> = ['white', 'blue'];
-const supportedTenants: Array<Tenant> = ['jobs.ch', 'jobup.ch'];
+const supportedTenants: Array<Tenant> = ['jobs_ch', 'jobup_ch'];
 
 export default (config: SDKConfig): SDKSecureConfig => {
   if (typeof config !== 'object' || config === null) {
@@ -34,10 +34,10 @@ export default (config: SDKConfig): SDKSecureConfig => {
   if (config.tenant && supportedTenants.find(tenant => tenant === config.tenant)) {
     parsedConfig.tenant = config.tenant;
   } else if (config.tenant) {
-    console.warn(`JobCloudSDK: Tenant "${config.tenant}" is not supported. Falling back to "jobs.ch".`);
-    parsedConfig.tenant = 'jobs.ch';
+    console.warn(`JobCloudSDK: Tenant "${config.tenant}" is not supported. Falling back to "jobs_ch".`);
+    parsedConfig.tenant = 'jobs_ch';
   } else {
-    parsedConfig.tenant = 'jobs.ch';
+    parsedConfig.tenant = 'jobs_ch';
   }
 
   if (config.locale && supportedLocales[parsedConfig.tenant].find(code => code === config.locale)) {

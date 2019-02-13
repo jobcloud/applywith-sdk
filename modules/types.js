@@ -4,7 +4,7 @@ export type Locale = 'de' | 'fr' | 'en';
 
 export type Env = 'prod' | 'test' | 'dev' | '_internal_test';
 
-export type Tenant = 'jobs.ch' | 'jobup.ch';
+export type Tenant = 'jobs_ch' | 'jobup_ch';
 
 // All SDKConfig fields are marked optional because the API is called by
 // the SDK consumer which could lead to required properties beeing undefined.
@@ -23,7 +23,7 @@ export type SDKConfig = {
   +env?: Env,
   // Use filre refs instead of blobs
   +useFileRefs: boolean,
-  // Tenant (jobs.ch | jobup.ch)
+  // Tenant (jobs_ch | jobup_ch)
   +tenant: Tenant,
 
   // -- Really optional fields
@@ -64,7 +64,7 @@ export type ApplyButtonOptions = {
   +locale: Locale,
   // Used to overwrite the default path for testing purposes.
   +path?: string,
-  // Tenant: jobs.ch | jobup.ch
+  // Tenant: jobs_ch | jobup_ch
   +tenant: Tenant,
   // Sender ID, used to identify the sender button
   +senderId: string,

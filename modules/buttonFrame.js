@@ -19,12 +19,12 @@ const createButtonUrl = (
 };
 
 const buttonSizes: { [tenant: Tenant]: { [id: Locale]: Array<number> } } = {
-  'jobs.ch': {
+  jobs_ch: {
     de: [217, 50],
     en: [186, 50],
     fr: [211, 50],
   },
-  'jobup.ch': {
+  jobup_ch: {
     de: [217, 50],
     en: [186, 50],
     fr: [211, 50],

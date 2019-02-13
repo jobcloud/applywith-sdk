@@ -15,7 +15,7 @@ const createFrame = (locale = 'de', color = 'blue', path) => {
     color,
     path,
     accessKey: 'd4609c6b-38c7-4b2b-8ef4-26a715d29593',
-    tenant: 'jobs.ch',
+    tenant: 'jobs_ch',
     senderId: 'sender001',
   });
   return container;
