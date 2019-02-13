@@ -53,7 +53,7 @@ export type SDKSecureConfig = {
 
 export type ApplyButtonClickHandler = (senderId?: string) => void;
 
-export type ApplyButtonColor = 'white' | 'blue';
+export type ApplyButtonColor = 'white' | 'blue' | 'green' | 'grey';
 
 export type ApplyButtonOptions = {
   // The oAuth consumer access key

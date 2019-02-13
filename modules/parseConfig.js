@@ -5,7 +5,11 @@ import type { SDKConfig, SDKSecureConfig, Locale, ApplyButtonColor, Tenant } fro
 
 const supportedLocales: { [Tenant]: Array<Locale> } = { jobs_ch: ['de', 'fr', 'en'], jobup_ch: ['de', 'fr', 'en'] };
 const defaultLocales: { [Tenant]: Locale } = { jobs_ch: 'de', jobup_ch: 'fr' };
-const supportedColors: Array<ApplyButtonColor> = ['white', 'blue'];
+const supportedColors: { [Tenant]: Array<ApplyButtonColor> } = {
+  jobs_ch: ['white', 'blue'],
+  jobup_ch: ['white', 'green', 'grey'],
+};
+const defaultColors: { [Tenant]: ApplyButtonColor } = { jobs_ch: 'blue', jobup_ch: 'green' };
 const supportedTenants: Array<Tenant> = ['jobs_ch', 'jobup_ch'];
 
 export default (config: SDKConfig): SDKSecureConfig => {
@@ -22,15 +26,6 @@ export default (config: SDKConfig): SDKSecureConfig => {
     callback: config.callback ? config.callback : () => {},
   };
 
-  if (config.colorVariant && supportedColors.find(color => color === config.colorVariant)) {
-    parsedConfig.colorVariant = config.colorVariant;
-  } else if (config.colorVariant) {
-    console.warn(`JobCloudSDK: Color "${config.colorVariant}" is not supported. Falling back to "blue".`);
-    parsedConfig.colorVariant = 'blue';
-  } else {
-    parsedConfig.colorVariant = 'blue';
-  }
-
   if (config.tenant && supportedTenants.find(tenant => tenant === config.tenant)) {
     parsedConfig.tenant = config.tenant;
   } else if (config.tenant) {
@@ -38,6 +33,19 @@ export default (config: SDKConfig): SDKSecureConfig => {
     parsedConfig.tenant = 'jobs_ch';
   } else {
     parsedConfig.tenant = 'jobs_ch';
+  }
+
+  if (config.colorVariant && supportedColors[parsedConfig.tenant].find(color => color === config.colorVariant)) {
+    parsedConfig.colorVariant = config.colorVariant;
+  } else if (config.colorVariant) {
+    console.warn(
+      `JobCloudSDK: Color "${config.colorVariant}" is not supported. Falling back to "${
+        defaultColors[parsedConfig.tenant]
+      }".`
+    );
+    parsedConfig.colorVariant = defaultColors[parsedConfig.tenant];
+  } else {
+    parsedConfig.colorVariant = defaultColors[parsedConfig.tenant];
   }
 
   if (config.locale && supportedLocales[parsedConfig.tenant].find(code => code === config.locale)) {
