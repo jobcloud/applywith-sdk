@@ -17,4 +17,7 @@ export const injectButton = (config: SDKConfig): void => {
   }
 };
 
-export const install = injectButton;
+export const install = (config: SDKConfig) => {
+  console.warn('JobCloudSdk.install is deprecated, please use injectButton instead. Use the same args.');
+  return injectButton(config);
+};
