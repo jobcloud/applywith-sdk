@@ -47,13 +47,13 @@ You can find the library on `window.JobCloudSDK`.
 Basic usage looks like this (using the UMD build as example):
 
 ```JavaScript
-window.JobCloudSDK.install(options);
+window.JobCloudSDK.injectButton(options);
 ```
 
 The options that the `install` method takes, along with its default values, are:
 
 ```javascript
-install({
+injectButton({
   accessKey: 'unique key',  // The key provided by JobCloud to identify your app.
                             // Please contact applywith@jobcloud.ch to get a personal key.
                             // Define any string when using the 'test' environment.
