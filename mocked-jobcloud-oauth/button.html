@@ -7,7 +7,6 @@
         margin: 0;
       }
       a {
-        background-color: #004099;
         border-radius: 5px;
         display: inline-block;
         padding: 5px;
@@ -29,15 +28,18 @@
       (function initButton() {
         const button = document.querySelector('#applywith-button');
         const query = Qs.parse(window.location.search.substring(1));
+        const color = query.color;
         button.addEventListener('click', function() {
           if (query.parent && window.parent) {
             window.parent.postMessage(JSON.stringify({
-              type: '@jobcloud/click'
+              type: '@jobcloud/click',
+              senderId: query.sender_id,
             }), decodeURIComponent(query.parent));
           } else {
             console.warn('No parent window defined');
           }
         });
+        button.style['background-color'] = color;
       })();
     </script>
   </body>
