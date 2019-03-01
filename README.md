@@ -47,13 +47,13 @@ You can find the library on `window.JobCloudSDK`.
 Basic usage looks like this (using the UMD build as example):
 
 ```JavaScript
-window.JobCloudSDK.install(options);
+window.JobCloudSDK.injectButton(options);
 ```
 
 The options that the `install` method takes, along with its default values, are:
 
 ```javascript
-install({
+injectButton({
   accessKey: 'unique key',  // The key provided by JobCloud to identify your app.
                             // Please contact applywith@jobcloud.ch to get a personal key.
                             // Define any string when using the 'test' environment.
@@ -69,16 +69,23 @@ install({
                             // Make sure that the injectElement is available on the DOM
                             // when you call `install`.
 
-  locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en'.
+  locale: 'de',             // Locale. Supported locales are 'de', 'fr' or 'en' (jobs_ch),
+                            // 'de', 'fr' for jobup_ch.
 
   useFileRefs: false,       // Setting this to true will remove the binary data for the
                             // documents in the callback. Instead files will be delivered
                             // as a url from which the files can be downloaded. Setting this
                             // is recommended for bandwidth reasons.
 
-  callback: (data) => {}    // The callback function that gets called when the process was
+  callback: (data) => {},   // The callback function that gets called when the process was
                             // successful to provide the applicants data. Use this to
                             // map the data to the application form.
+                            
+  tenant: 'jobs_ch',        // Tenant. Supported tenants are 'jobs_ch' or 'jobup_ch'.
+  
+  colorVariant: 'white',    // Color of the ApplyWith-Button. Supported colors for tenant
+                            // 'jobs_ch' are 'blue' or 'white', for tenant 'jobup_ch' are
+                            // 'green', 'white', 'grey'.
 })
 ```
 

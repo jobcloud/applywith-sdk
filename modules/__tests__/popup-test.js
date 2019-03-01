@@ -17,14 +17,14 @@ describe('popup', () => {
     beforeEach(() => {
       spyOn(spies, 'focus');
       spyOn(window, 'open').and.returnValue({ focus: spies.focus });
-      popup = createPopup({ endpoint: 'http://localhost:8081' });
-      popup.open();
+      popup = createPopup({ endpoint: 'http://localhost:8081?client_id=client001' });
+      popup.open('sender001');
     });
     it('opens popup', () => {
       expect(window.open.calls.count()).toEqual(1);
     });
     it('sets correct url', () => {
-      expect(window.open.calls.argsFor(0)[0]).toEqual('http://localhost:8081');
+      expect(window.open.calls.argsFor(0)[0]).toEqual('http://localhost:8081?client_id=client001&sender_id=sender001');
     });
     it('sets correct title', () => {
       expect(window.open.calls.argsFor(0)[1]).toEqual('Authorization');
@@ -43,12 +43,13 @@ describe('popup', () => {
     it('calls message callback', done => {
       spyOn(window, 'open').and.returnValue({ focus: spies.focus, close: spies.close });
       spyOn(spies, 'callback').and.callFake(done);
-      createPopup({ endpoint: 'http://localhost:8081' }, spies.callback).open();
+      createPopup({ endpoint: 'http://localhost:8081' }, spies.callback).open('sender001');
       window.postMessage(
         JSON.stringify({
           type: '@jobcloud/application',
           testOrigin: 'http://localhost:8081',
           payload: { application: {} },
+          senderId: 'sender001',
         }),
         '*'
       );
@@ -60,12 +61,13 @@ describe('popup', () => {
         expect(spies.close).toHaveBeenCalled();
         done();
       });
-      createPopup({ endpoint: 'http://localhost:8081' }, spies.callback).open();
+      createPopup({ endpoint: 'http://localhost:8081' }, spies.callback).open('sender001');
       window.postMessage(
         JSON.stringify({
           type: '@jobcloud/application',
           testOrigin: 'http://localhost:8081',
           payload: { application: {} },
+          senderId: 'sender001',
         }),
         '*'
       );

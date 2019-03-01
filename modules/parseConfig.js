@@ -1,10 +1,16 @@
 // @flow
-import hosts from './hosts';
+import getHosts from './hosts';
 
-import type { SDKConfig, SDKSecureConfig, Locale, ApplyButtonColor } from './types';
+import type { SDKConfig, SDKSecureConfig, Locale, ApplyButtonColor, Tenant } from './types';
 
-const supportedLocales: Array<Locale> = ['de', 'fr', 'en'];
-const supportedColors: Array<ApplyButtonColor> = ['white', 'blue'];
+const supportedLocales: { [Tenant]: Array<Locale> } = { jobs_ch: ['de', 'fr', 'en'], jobup_ch: ['fr', 'en'] };
+const defaultLocales: { [Tenant]: Locale } = { jobs_ch: 'de', jobup_ch: 'fr' };
+const supportedColors: { [Tenant]: Array<ApplyButtonColor> } = {
+  jobs_ch: ['white', 'blue'],
+  jobup_ch: ['white', 'green', 'grey'],
+};
+const defaultColors: { [Tenant]: ApplyButtonColor } = { jobs_ch: 'blue', jobup_ch: 'green' };
+const supportedTenants: Array<Tenant> = ['jobs_ch', 'jobup_ch'];
 
 export default (config: SDKConfig): SDKSecureConfig => {
   if (typeof config !== 'object' || config === null) {
@@ -20,28 +26,47 @@ export default (config: SDKConfig): SDKSecureConfig => {
     callback: config.callback ? config.callback : () => {},
   };
 
-  if (config.locale && supportedLocales.find(code => code === config.locale)) {
-    parsedConfig.locale = config.locale;
-  } else if (config.locale) {
-    console.warn(`JobCloudSDK: Locale "${config.locale}" is not supported. Falling back to "de".`);
-    parsedConfig.locale = 'de';
+  if (config.tenant && supportedTenants.find(tenant => tenant === config.tenant)) {
+    parsedConfig.tenant = config.tenant;
+  } else if (config.tenant) {
+    console.warn(`JobCloudSDK: Tenant "${config.tenant}" is not supported. Falling back to "jobs_ch".`);
+    parsedConfig.tenant = 'jobs_ch';
   } else {
-    console.warn(`JobCloudSDK: Locale not configured. Falling back to "de".`);
-    parsedConfig.locale = 'de';
+    parsedConfig.tenant = 'jobs_ch';
   }
 
-  if (config.colorVariant && supportedColors.find(color => color === config.colorVariant)) {
+  if (config.colorVariant && supportedColors[parsedConfig.tenant].find(color => color === config.colorVariant)) {
     parsedConfig.colorVariant = config.colorVariant;
   } else if (config.colorVariant) {
-    console.warn(`JobCloudSDK: Color "${config.colorVariant}" is not supported. Falling back to "blue".`);
-    parsedConfig.colorVariant = 'blue';
+    console.warn(
+      `JobCloudSDK: Color "${config.colorVariant}" is not supported. Falling back to "${
+        defaultColors[parsedConfig.tenant]
+      }".`
+    );
+    parsedConfig.colorVariant = defaultColors[parsedConfig.tenant];
   } else {
-    parsedConfig.colorVariant = 'blue';
+    parsedConfig.colorVariant = defaultColors[parsedConfig.tenant];
   }
+
+  if (config.locale && supportedLocales[parsedConfig.tenant].find(code => code === config.locale)) {
+    parsedConfig.locale = config.locale;
+  } else if (config.locale) {
+    console.warn(
+      `JobCloudSDK: Locale "${config.locale}" is not supported. Falling back to "${
+        defaultLocales[parsedConfig.tenant]
+      }".`
+    );
+    parsedConfig.locale = defaultLocales[parsedConfig.tenant];
+  } else {
+    console.warn(`JobCloudSDK: Locale not configured. Falling back to "${defaultLocales[parsedConfig.tenant]}".`);
+    parsedConfig.locale = defaultLocales[parsedConfig.tenant];
+  }
+
+  const hosts = getHosts(parsedConfig.tenant);
 
   parsedConfig.useFileRefs = !!config.useFileRefs;
 
-  const enpointSearch =
+  const endpointSearch =
     `?client_id=${parsedConfig.accessKey}&` +
     `redirect_uri=${encodeURIComponent(window.location.origin)}&` +
     'approval_prompt=auto&response_type=code&' +
@@ -50,8 +75,8 @@ export default (config: SDKConfig): SDKSecureConfig => {
 
   parsedConfig.oAuthEndpoint =
     typeof config.oAuthEndpoint === 'string'
-      ? `${config.oAuthEndpoint}${enpointSearch}`
-      : `${hosts[env].getOAuthPath(parsedConfig.locale)}${enpointSearch}`;
+      ? `${config.oAuthEndpoint}${endpointSearch}`
+      : `${hosts[env].getOAuthPath(parsedConfig.locale)}${endpointSearch}`;
 
   parsedConfig.oAuthButtonPath =
     typeof config.oAuthButtonPath === 'string' ? config.oAuthButtonPath : hosts[env].getButtonPath(parsedConfig.locale);
