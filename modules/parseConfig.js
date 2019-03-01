@@ -3,7 +3,7 @@ import getHosts from './hosts';
 
 import type { SDKConfig, SDKSecureConfig, Locale, ApplyButtonColor, Tenant } from './types';
 
-const supportedLocales: { [Tenant]: Array<Locale> } = { jobs_ch: ['de', 'fr', 'en'], jobup_ch: ['de', 'fr', 'en'] };
+const supportedLocales: { [Tenant]: Array<Locale> } = { jobs_ch: ['de', 'fr', 'en'], jobup_ch: ['fr', 'en'] };
 const defaultLocales: { [Tenant]: Locale } = { jobs_ch: 'de', jobup_ch: 'fr' };
 const supportedColors: { [Tenant]: Array<ApplyButtonColor> } = {
   jobs_ch: ['white', 'blue'],
