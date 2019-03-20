@@ -2,7 +2,7 @@
 
 [![yarn version](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk.png)](https://badge.fury.io/js/%40jobcloud%2Fapplywith-sdk)
 
-[`@jobcloud/applywith-sdk`](https://yarnpkg.com/en/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch profile, including their CV and uploaded documents.
+[`@jobcloud/applywith-sdk`](https://yarnpkg.com/en/package/@jobcloud/applywith-sdk) is a JavaScript library that lets you easily integrate JobCloud's "Apply with jobs.ch" or "Apply with jobup.ch" button on your application form or ATS integration. The feature is mobile-friendly and allows job seekers to apply faster with their jobs.ch or jobup.ch profile, including their CV and uploaded documents.
 
 In order to use it in production, you need an access key. Please contact [applywith@jobcloud.ch](mailto:applywith@jobcloud.ch) alongside with a logo image (400x400px) and the domain you want to run it on.
 

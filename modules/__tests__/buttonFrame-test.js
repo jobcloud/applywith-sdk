@@ -58,7 +58,7 @@ describe('buttonFrame', () => {
     it('shows user warning when origin does not match', done => {
       spyOn(console, 'warn').and.callFake(() => {
         expect(console.warn.calls.count()).toEqual(1);
-        expect(console.warn.calls.argsFor(0)[0]).toContain('JobCloudSDK: Recieved click message from invalid origin!');
+        expect(console.warn.calls.argsFor(0)[0]).toContain('JobCloudSDK: Received click message from invalid origin!');
         done();
       });
       createFrame(undefined, undefined, 'http://localhost:8081/button.html');
