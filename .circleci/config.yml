@@ -11,6 +11,13 @@ jobs:
       - run:
           name: Yarn
           command: if ! which yarn > /dev/null; then npm install yarn; fi
+      - run: |
+              sudo rm /etc/apt/sources.list
+              echo "deb http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
+              echo "deb-src http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
+              echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid
+              echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin
+              sudo apt-get update
       - run:
           name: Image Deps
           command: apt-get update && apt-get install -y -qq ocaml libelf-dev
