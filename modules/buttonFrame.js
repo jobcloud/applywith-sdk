@@ -18,22 +18,9 @@ const createButtonUrl = (
   )}&sender_id=${senderId || 'false'}`;
 };
 
-const buttonSizes: { [tenant: Tenant]: { [id: Locale]: Array<number> } } = {
-  jobs_ch: {
-    de: [217, 50],
-    en: [186, 50],
-    fr: [211, 50],
-  },
-  jobup_ch: {
-    de: [217, 50],
-    en: [186, 50],
-    fr: [211, 50],
-  },
-};
-
-const getFrameStyle = (locale: Locale, tenant: Tenant) => `
-  width: ${buttonSizes[tenant][locale][0]}px;
-  height: ${buttonSizes[tenant][locale][1]}px;
+const getFrameStyle = () => `
+  width: 217px;
+  height: 50px;
   border: 0;
 `;
 
@@ -48,7 +35,7 @@ export default (container: HTMLElement, clickHandler: ApplyButtonClickHandler, o
   frame.setAttribute('frameborder', '0');
   frame.setAttribute('scrolling', 'no');
   frame.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-  frame.setAttribute('style', getFrameStyle(options.locale, options.tenant));
+  frame.setAttribute('style', getFrameStyle());
 
   container.appendChild(frame);
 

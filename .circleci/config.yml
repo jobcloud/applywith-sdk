@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /srv/unity/applywith-sdk
     docker:
-      - image: node:8.0.0
+      - image: node:8-jessie
     steps:
       - checkout
       - restore_cache:

@@ -9,7 +9,7 @@
           window.parent.postMessage(JSON.stringify({ type: '@jobcloud/proxy-ready' }), '*');
           console.log('Proxy open.');
           window.proxyPostMessage = function(data) {
-            console.log('Proxy has recieved event. Tunneling.');
+            console.log('Proxy has received event. Tunneling.');
             window.parent.postMessage(data, '*')
           };
         }

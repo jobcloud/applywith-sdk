@@ -8,7 +8,7 @@ export default (event: MessageEvent, messageType: string, origin: string): ?Obje
   try {
     data = JSON.parse(event.data);
   } catch (e) {
-    console.warn('JobCloudSDK: Recieved invalid message format!');
+    console.warn('JobCloudSDK: Received invalid message format!');
   }
   if (data === undefined || !('type' in data) || data.type === undefined) {
     return null;
@@ -20,11 +20,11 @@ export default (event: MessageEvent, messageType: string, origin: string): ?Obje
   // able to test this security feature as to be left in the dark.
   if (process.env.NODE_ENV === 'test') {
     if (!('testOrigin' in data) || typeof data.testOrigin !== 'string' || !origin.startsWith(data.testOrigin)) {
-      console.warn('JobCloudSDK: Recieved click message from invalid origin!');
+      console.warn('JobCloudSDK: Received click message from invalid origin!');
       return null;
     }
   } else if (!origin.startsWith(event.origin)) {
-    console.warn('JobCloudSDK: Recieved click message from invalid origin!');
+    console.warn('JobCloudSDK: Received click message from invalid origin!');
     return null;
   }
 
