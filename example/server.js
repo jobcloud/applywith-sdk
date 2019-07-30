@@ -30,7 +30,7 @@ app.post('/upload', function(req, res) {
       fs.writeFileSync(filePath, contentBuffer);
     });
   }
-  res.send(200);
+  res.sendStatus(200);
 });
 
 app.listen(8083, () => {
