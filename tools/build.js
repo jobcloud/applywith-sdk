@@ -28,15 +28,11 @@ exec('babel modules -d es --ignore __tests__', {
 
 console.log(chalk.blue('\n🚀  Building jobcloud-sdk.js ...'));
 
-exec('webpack modules/index.js --output umd/jobcloud-sdk.js', {
-  NODE_ENV: 'production',
-});
+exec('webpack modules/index.js --output umd/jobcloud-sdk.js --mode development');
 
 console.log(chalk.blue('\n🚀  Building jobcloud-sdk.min.js ...'));
 
-exec('webpack -p modules/index.js --output umd/jobcloud-sdk.min.js', {
-  NODE_ENV: 'production',
-});
+exec('webpack -p modules/index.js --output umd/jobcloud-sdk.min.js --mode production');
 
 const size = gzipSize.sync(fs.readFileSync('umd/jobcloud-sdk.min.js'));
 
