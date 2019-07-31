@@ -42,7 +42,7 @@ You can find the library on `window.JobCloudSDK`.
 
 ## Usage
 
-`@jobcloud/applywith-sdk` provides the simple `install` method that takes a few options to create all that is needed for the SDK to work. An implementation example can be found [here](https://github.com/jobcloud/applywith-sdk/blob/develop/example/index.html).
+`@jobcloud/applywith-sdk` provides the simple `injectButton` method that takes a few options to create all that is needed for the SDK to work. An implementation example can be found [here](https://github.com/jobcloud/applywith-sdk/blob/develop/example/index.html).
 
 Basic usage looks like this (using the UMD build as example):
 
