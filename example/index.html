@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://unpkg.com/@jobcloud/applywith-sdk/umd/jobcloud-sdk.min.js"></script>
+    <!-- use following instead of local /public/jobcloud-sdk.js for production -->
+    <!-- <script src="https://unpkg.com/@jobcloud/applywith-sdk/umd/jobcloud-sdk.min.js"></script> -->
+     <script src="/public/jobcloud-sdk.js"></script>
   </head>
   <body>
     <p>JobCloud ApplyWith SDK Example</p>
@@ -125,7 +127,7 @@
         }
       }
 
-      JobCloudSDK.install({
+      JobCloudSDK.injectButton({
         accessKey: '22_ffff',
         injectElement: '#jobcloud-outlet',
         useFileRefs: true,
