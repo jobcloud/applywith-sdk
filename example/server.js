@@ -33,6 +33,8 @@ app.post('/upload', function(req, res) {
   res.sendStatus(200);
 });
 
+app.use(express.static('public'));
+
 app.listen(8083, () => {
   console.log('Server listening on 8083');
 });
