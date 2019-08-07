@@ -69,5 +69,9 @@
   },
   "dependencies": {
     "uuid": "^3.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jobcloud/applywith-sdk.git"
   }
 }
