@@ -30,8 +30,10 @@ app.post('/upload', function(req, res) {
       fs.writeFileSync(filePath, contentBuffer);
     });
   }
-  res.send(200);
+  res.sendStatus(200);
 });
+
+app.use(express.static('public'));
 
 app.listen(8083, () => {
   console.log('Server listening on 8083');

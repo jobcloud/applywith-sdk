@@ -20,16 +20,16 @@ Please read through this documentation before starting the implementation. We ad
 
 Using [yarn](https://yarnpkg.com/lang/en/):
 
-    $ yarn install --save @jobcloud/applywith-sdk
+    $ yarn add @jobcloud/applywith-sdk
 
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
 
 ```js
 // using ES6 modules
-import { install } from '@jobcloud/applywith-sdk';
+import { injectButton } from '@jobcloud/applywith-sdk';
 
 // using CommonJS modules
-var install = require('@jobcloud/applywith-sdk').install
+var injectButton = require('@jobcloud/applywith-sdk').injectButton;
 ```
 
 The UMD build is also available on [unpkg](https://unpkg.com):
@@ -42,7 +42,7 @@ You can find the library on `window.JobCloudSDK`.
 
 ## Usage
 
-`@jobcloud/applywith-sdk` provides the simple `install` method that takes a few options to create all that is needed for the SDK to work. An implementation example can be found [here](https://github.com/jobcloud/applywith-sdk/blob/develop/example/index.html).
+`@jobcloud/applywith-sdk` provides the simple `injectButton` method that takes a few options to create all that is needed for the SDK to work. An implementation example can be found [here](https://github.com/jobcloud/applywith-sdk/blob/develop/example/index.html).
 
 Basic usage looks like this (using the UMD build as example):
 
@@ -50,7 +50,7 @@ Basic usage looks like this (using the UMD build as example):
 window.JobCloudSDK.injectButton(options);
 ```
 
-The options that the `install` method takes, along with its default values, are:
+The options that the `injectButton` method takes, along with its default values, are:
 
 ```javascript
 injectButton({
@@ -80,9 +80,9 @@ injectButton({
   callback: (data) => {},   // The callback function that gets called when the process was
                             // successful to provide the applicants data. Use this to
                             // map the data to the application form.
-                            
+
   tenant: 'jobs_ch',        // Tenant. Supported tenants are 'jobs_ch' or 'jobup_ch'.
-  
+
   colorVariant: 'white',    // Color of the ApplyWith-Button. Supported colors for tenant
                             // 'jobs_ch' are 'blue' or 'white', for tenant 'jobup_ch' are
                             // 'green', 'white', 'grey'.
@@ -141,7 +141,7 @@ See the [files response example](docs/file-response-binaries.md) when setting `u
 
 1. Clone this project and `cd` into the directory.
 2. `yarn install` to fetch dependencies.
-3. `yarn run example` to run the example.
+3. `yarn example` to run the example.
 4. Open [`localhost:8082/index.html`](http://localhost:8082/index.html), press the applyWith button and send the application. The attachments are now uploaded and saved to `example/uploads`.
 
 It's important to serve the page containing the ApplyWith button through a webserver. Otherwise the authentication will fail.
@@ -167,8 +167,9 @@ In that case the browser console will show the following error:
 #### List of useful Commands
 
 - `yarn build` to build production code (UMD and ES modules).
-- `yarn test` to run unit tests.
+- `yarn example` to start the development client and server.
 - `yarn lint` to run eslint and flowtype check.
 - `yarn release` to cut a release.
 - `yarn serve` to spin up a mocked OAuth service endpoint.
 - `yarn start` to start the development server.
+- `yarn test` to run unit tests.
