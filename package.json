@@ -3,7 +3,7 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "version": "1.7.0",
+  "version": "1.6.0",
   "description": "ApplyWith JobCloud SDK",
   "files": [
     "es",
@@ -68,11 +68,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "minimist": "^0.2.1",
-    "node-forge": "^0.10.0",
-    "serialize-javascript": "^3.1.0",
-    "uuid": "^3.3.2",
-    "yargs-parser": "^13.1.2"
+    "uuid": "^3.3.2"
   },
   "repository": {
     "type": "git",
