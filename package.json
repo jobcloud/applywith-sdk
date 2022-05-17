@@ -1,7 +1,7 @@
 {
   "name": "@jobcloud/applywith-sdk",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=12.0.0"
   },
   "version": "1.6.0",
   "description": "ApplyWith JobCloud SDK",
